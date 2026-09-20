@@ -71,6 +71,8 @@
     .intro-sticky h2{font-size:clamp(46px,5vw,76px);line-height:.98;margin-top:18px}
     .intro-sticky p{color:var(--muted);line-height:1.75;margin-top:24px;max-width:430px}
     .story-stack{display:grid;gap:24px}
+    .story-opening-drink{display:flex;justify-content:center;margin:0 0 26px 0}
+    .story-opening-drink .fact-drink-stage{width:170px;margin:0}
     .story-card{background:white;border-radius:34px;padding:34px;box-shadow:0 12px 36px rgba(23,34,28,.07);display:grid;grid-template-columns:170px 1fr;gap:28px;align-items:center;min-height:220px;will-change:transform;transform:translate3d(var(--card-x,0px),var(--card-y,0px),0) rotate(var(--card-r,0deg))}
     .story-card .year{font-family:"Playfair Display";font-size:58px;color:var(--green);line-height:1}
     .story-card h3{font-size:28px;margin-bottom:10px}
@@ -149,6 +151,7 @@
       .hero h1{font-size:54px}
       .hero-intro{font-size:16px}
       .fact-drink-stage{width:min(190px,58vw);margin-bottom:16px}
+      .story-opening-drink .fact-drink-stage{width:150px;margin:0}
       .fact-drink-disc{animation-duration:9s}
       .section,.mission,.closing{padding:78px 0}
       .intro-grid{gap:38px}
@@ -214,13 +217,16 @@
           <p>The first Starbucks store offered fresh-roasted whole bean coffees. The Starbucks name was inspired by Moby-Dick and the seafaring tradition of early coffee traders.</p>
         </div>
         <div class="story-stack">
+          <div class="story-opening-drink reveal" aria-label="Rotating Starbucks drink at the beginning of the story">
+            <div class="fact-drink-stage">
+              <div class="fact-drink-disc">
+                <img src="https://about.starbucks.com/uploads/2026/05/Starbucks-Horchata-scaled.jpeg" alt="Starbucks Horchata Frappuccino">
+              </div>
+            </div>
+          </div>
+
           <article class="story-card reveal">
             <div class="story-year-block">
-              <div class="fact-drink-stage" aria-label="One rotating Starbucks drink above 1971">
-                <div class="fact-drink-disc">
-                  <img src="https://about.starbucks.com/uploads/2026/05/Starbucks-Horchata-scaled.jpeg" alt="Starbucks Horchata Frappuccino">
-                </div>
-              </div>
               <div class="year">1971</div>
             </div>
             <div>
