@@ -49,10 +49,17 @@
     .hero-bg{position:absolute;inset:0}
     .hero-bg img{height:115%;object-fit:cover;filter:brightness(.42) saturate(.72);transform:translate3d(0,var(--hero-y,0px),0) scale(var(--hero-scale,1.09));animation:heroDrift 12s ease-in-out infinite alternate;will-change:transform}
     .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,18,12,.12),rgba(5,18,12,.35) 45%,rgba(5,18,12,.88))}
-    .hero-content{position:relative;z-index:2;padding:160px 0 74px;transform:translate3d(0,var(--hero-content-y,0px),0);will-change:transform}
+    .hero-content{position:relative;z-index:2;padding:132px 0 64px;transform:translate3d(0,var(--hero-content-y,0px),0);will-change:transform}
+    .hero-main{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:46px;align-items:center}
+    .hero-copy{position:relative;z-index:2}
     .hero .eyebrow{color:#bfe6d4}
-    .hero h1{font-size:clamp(62px,9.2vw,138px);line-height:.88;letter-spacing:-.05em;max-width:1000px;margin-top:18px}
-    .hero-bottom{display:grid;grid-template-columns:1fr .75fr;gap:40px;align-items:end;margin-top:42px}
+    .hero h1{font-size:clamp(58px,7.4vw,108px);line-height:.9;letter-spacing:-.05em;max-width:760px;margin-top:18px}
+    .hero-bottom{display:grid;grid-template-columns:1fr .72fr;gap:34px;align-items:end;margin-top:38px}
+    .hero-drink-stage{position:relative;min-height:560px;display:grid;place-items:center}
+    .hero-drink-stage:before{content:"";position:absolute;width:min(38vw,500px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.16),rgba(255,255,255,.045) 54%,rgba(255,255,255,.01) 70%);border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 20px rgba(255,255,255,.03),0 34px 90px rgba(0,0,0,.28)}
+    .hero-drink-disc{position:relative;z-index:2;width:min(36vw,470px);aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 34px 80px rgba(0,0,0,.42);animation:coffeeSpin 11s linear infinite;will-change:transform}
+    .hero-drink-disc img{width:100%;height:100%;object-fit:cover;object-position:19% 52%;transform:scale(2.18);filter:saturate(1.02) contrast(1.04)}
+    .hero-drink-disc:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 -48px 80px rgba(0,0,0,.16);pointer-events:none}
     .hero-intro{font-size:19px;line-height:1.72;color:#dbe7e1;max-width:680px}
     .hero-fact{justify-self:end;border-left:1px solid rgba(255,255,255,.28);padding-left:28px;max-width:300px}
     .hero-fact b{display:block;font-family:"Playfair Display";font-size:34px;margin-bottom:8px}
@@ -71,11 +78,9 @@
     .story-card p{line-height:1.7;color:var(--muted)}
     .chapter{background:#e3ece6}
     .chapter-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
-    .chapter-media{border-radius:38px;min-height:620px;position:relative;box-shadow:var(--shadow);background:radial-gradient(circle at 50% 42%,#2e5848 0%,#173a2d 58%,#0d261d 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:38px}
-    .chapter-media:before{content:"";position:absolute;width:78%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.18);box-shadow:0 0 0 18px rgba(255,255,255,.035),0 0 80px rgba(0,0,0,.25)}
-    .rotating-disc{position:relative;z-index:2;width:min(86%,520px);aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.38);animation:coffeeSpin 13s linear infinite;will-change:transform}
-    .rotating-disc img{width:100%;height:100%;object-fit:cover;object-position:27% 50%;filter:saturate(.96) contrast(1.03);transform:scale(1.45)}
-    .rotating-disc:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2),inset 0 -40px 70px rgba(0,0,0,.15);pointer-events:none}
+    .chapter-media{border-radius:38px;overflow:hidden;min-height:620px;position:relative;box-shadow:var(--shadow);background:#223b30}
+    .chapter-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.86);transition:transform 1.2s cubic-bezier(.2,.7,.2,1);transform:scale(1.03)}
+    .chapter-media.in-view img{transform:scale(1.08)}
     .chapter-copy{background:var(--green-dark);color:white;border-radius:38px;padding:clamp(38px,5vw,72px);display:flex;flex-direction:column;justify-content:center;transform:translate3d(var(--chapter-copy-x,0px),0,0);will-change:transform}
     .chapter-copy .eyebrow{color:#bfe6d4}
     .chapter-copy h2{font-size:clamp(50px,6vw,84px);line-height:.96;margin:18px 0 24px}
@@ -126,14 +131,18 @@
       .nav-links{display:none;position:absolute;top:76px;left:0;right:0;background:var(--cream);padding:22px;flex-direction:column;border-bottom:1px solid var(--line)}
       .nav-links.open{display:flex}
       .menu-btn{display:block}
-      .hero-content{padding-top:130px}
+      .hero-content{padding-top:112px}
+      .hero-main{grid-template-columns:1fr;gap:18px}
+      .hero-copy{order:1}
+      .hero-drink-stage{order:2;min-height:430px}
+      .hero-drink-stage:before{width:min(78vw,430px)}
+      .hero-drink-disc{width:min(74vw,410px)}
       .hero-bottom,.intro-grid,.chapter-grid{grid-template-columns:1fr}
       .hero-fact{justify-self:start}
       .scroll-cue{display:none}
       .intro-sticky{position:static}
       .story-card{grid-template-columns:120px 1fr}
-      .chapter-media{min-height:470px;padding:28px}
-      .rotating-disc{width:min(82vw,440px)}
+      .chapter-media{min-height:470px}
       .timeline{grid-template-columns:1fr 1fr;gap:26px 16px}
       .timeline:before{display:none}
       .milestone{padding-top:28px;border-top:1px solid var(--line)}
@@ -144,14 +153,16 @@
     @media(max-width:560px){
       .shell{width:min(100% - 24px,1180px)}
       .nav-inner{height:68px}
-      .hero h1{font-size:58px}
+      .hero h1{font-size:54px}
       .hero-intro{font-size:16px}
+      .hero-drink-stage{min-height:350px}
+      .hero-drink-stage:before{width:min(86vw,350px)}
+      .hero-drink-disc{width:min(82vw,330px);animation-duration:9s}
       .section,.mission,.closing{padding:78px 0}
       .intro-grid{gap:38px}
       .story-card{grid-template-columns:1fr;padding:28px}
       .story-card .year{font-size:50px}
-      .chapter-media{min-height:430px;border-radius:28px;padding:20px}
-      .rotating-disc{width:min(84vw,390px);animation-duration:11s}
+      .chapter-media{min-height:430px;border-radius:28px}
       .chapter-copy{padding:30px;border-radius:28px}
       .chapter-copy h2{font-size:52px}
       .timeline{grid-template-columns:1fr}
@@ -190,13 +201,22 @@
         <img src="./assets/images/about-bg.jpg" alt="Warm coffeehouse interior">
       </div>
       <div class="shell hero-content">
-        <span class="eyebrow">About us</span>
-        <h1>From one store to millions of moments.</h1>
-        <div class="hero-bottom">
-          <p class="hero-intro">A story shaped by coffee, craft and human connection—from Seattle’s Pike Place Market to the everyday ritual of coffeehouses across the Philippines.</p>
-          <div class="hero-fact">
-            <b>1971</b>
-            <span>The story began with a single store in Seattle’s historic Pike Place Market.</span>
+        <div class="hero-main">
+          <div class="hero-copy">
+            <span class="eyebrow">About us</span>
+            <h1>From one store to millions of moments.</h1>
+            <div class="hero-bottom">
+              <p class="hero-intro">A story shaped by coffee, craft and human connection—from Seattle’s Pike Place Market to the everyday ritual of coffeehouses across the Philippines.</p>
+              <div class="hero-fact">
+                <b>1971</b>
+                <span>The story began with a single store in Seattle’s historic Pike Place Market.</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-drink-stage" aria-label="One rotating Starbucks drink">
+            <div class="hero-drink-disc">
+              <img src="https://about.starbucks.com/uploads/2026/05/Starbucks-Horchata-scaled.jpeg" alt="Starbucks Horchata Frappuccino">
+            </div>
           </div>
         </div>
       </div>
@@ -246,9 +266,7 @@
     <section class="section chapter" id="philippines">
       <div class="shell chapter-grid">
         <div class="chapter-media reveal">
-          <div class="rotating-disc" aria-label="Rotating coffeehouse image">
-            <img src="https://about.starbucks.com/uploads/2026/05/Starbucks-Horchata-scaled.jpeg" alt="Rotating Starbucks Horchata Frappuccino drink">
-          </div>
+          <img src="./assets/images/about-2.jpg" alt="Coffeehouse experience in the Philippines">
         </div>
         <div class="chapter-copy reveal">
           <span class="eyebrow">Starbucks in the Philippines</span>
