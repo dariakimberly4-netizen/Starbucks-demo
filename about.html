@@ -71,10 +71,11 @@
     .story-card p{line-height:1.7;color:var(--muted)}
     .chapter{background:#e3ece6}
     .chapter-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
-    .chapter-media{border-radius:38px;overflow:hidden;min-height:620px;position:relative;box-shadow:var(--shadow);background:#223b30}
-    .chapter-media img{height:115%;object-fit:cover;filter:saturate(.82);transform:translate3d(0,var(--chapter-y,0px),0) scale(1.08);transition:filter .4s ease;will-change:transform}
-    .chapter-media.in-view img{filter:saturate(.95)}
-    .chapter-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(4,18,12,.42))}
+    .chapter-media{border-radius:38px;min-height:620px;position:relative;box-shadow:var(--shadow);background:radial-gradient(circle at 50% 42%,#2e5848 0%,#173a2d 58%,#0d261d 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:38px}
+    .chapter-media:before{content:"";position:absolute;width:78%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.18);box-shadow:0 0 0 18px rgba(255,255,255,.035),0 0 80px rgba(0,0,0,.25)}
+    .rotating-disc{position:relative;z-index:2;width:min(86%,520px);aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.38);animation:coffeeSpin 13s linear infinite;will-change:transform}
+    .rotating-disc img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04);transform:scale(1.08)}
+    .rotating-disc:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2),inset 0 -40px 70px rgba(0,0,0,.15);pointer-events:none}
     .chapter-copy{background:var(--green-dark);color:white;border-radius:38px;padding:clamp(38px,5vw,72px);display:flex;flex-direction:column;justify-content:center;transform:translate3d(var(--chapter-copy-x,0px),0,0);will-change:transform}
     .chapter-copy .eyebrow{color:#bfe6d4}
     .chapter-copy h2{font-size:clamp(50px,6vw,84px);line-height:.96;margin:18px 0 24px}
@@ -120,6 +121,7 @@
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
     .reveal.show{opacity:1;transform:none}
     @keyframes heroDrift{to{transform:scale(1.12) translate3d(-1.8%,1%,0)}}
+    @keyframes coffeeSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
     @media(max-width:900px){
       .nav-links{display:none;position:absolute;top:76px;left:0;right:0;background:var(--cream);padding:22px;flex-direction:column;border-bottom:1px solid var(--line)}
       .nav-links.open{display:flex}
@@ -130,7 +132,8 @@
       .scroll-cue{display:none}
       .intro-sticky{position:static}
       .story-card{grid-template-columns:120px 1fr}
-      .chapter-media{min-height:470px}
+      .chapter-media{min-height:470px;padding:28px}
+      .rotating-disc{width:min(82vw,440px)}
       .timeline{grid-template-columns:1fr 1fr;gap:26px 16px}
       .timeline:before{display:none}
       .milestone{padding-top:28px;border-top:1px solid var(--line)}
@@ -147,7 +150,8 @@
       .intro-grid{gap:38px}
       .story-card{grid-template-columns:1fr;padding:28px}
       .story-card .year{font-size:50px}
-      .chapter-media{min-height:390px;border-radius:28px}
+      .chapter-media{min-height:430px;border-radius:28px;padding:20px}
+      .rotating-disc{width:min(84vw,390px);animation-duration:11s}
       .chapter-copy{padding:30px;border-radius:28px}
       .chapter-copy h2{font-size:52px}
       .timeline{grid-template-columns:1fr}
@@ -242,7 +246,9 @@
     <section class="section chapter" id="philippines">
       <div class="shell chapter-grid">
         <div class="chapter-media reveal">
-          <img src="./assets/images/about-2.jpg" alt="Coffeehouse experience in the Philippines">
+          <div class="rotating-disc" aria-label="Rotating coffeehouse image">
+            <img src="./assets/images/about-2.jpg" alt="Coffeehouse experience in the Philippines">
+          </div>
         </div>
         <div class="chapter-copy reveal">
           <span class="eyebrow">Starbucks in the Philippines</span>
@@ -386,7 +392,6 @@
     const heroContent=document.querySelector('.hero-content');
     const storyCards=[...document.querySelectorAll('.story-card')];
     const chapter=document.getElementById('philippines');
-    const chapterImg=document.querySelector('.chapter-media img');
     const chapterCopy=document.querySelector('.chapter-copy');
     const timeline=document.getElementById('timeline');
     const valueCards=[...document.querySelectorAll('.value')];
@@ -422,7 +427,6 @@
       });
 
       const cp=localProgress(chapter)-.5;
-      chapterImg.style.setProperty('--chapter-y',(cp*-150)+'px');
       chapterCopy.style.setProperty('--chapter-copy-x',(cp*70)+'px');
 
       const tr=timeline.getBoundingClientRect();
