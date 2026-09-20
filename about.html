@@ -54,16 +54,15 @@
     .hero-copy{position:relative;z-index:2}
     .hero .eyebrow{color:#bfe6d4}
     .hero h1{font-size:clamp(58px,7.4vw,108px);line-height:.9;letter-spacing:-.05em;max-width:760px;margin-top:18px}
-    .hero-bottom{display:grid;grid-template-columns:1fr .72fr;gap:34px;align-items:end;margin-top:38px}
-    .fact-drink-stage{position:relative;width:min(240px,28vw);aspect-ratio:1;margin:0 0 20px 0;display:grid;place-items:center}
+    .hero-bottom{display:block;margin-top:38px}
+    .fact-drink-stage{position:relative;width:150px;aspect-ratio:1;margin:0 auto 18px;display:grid;place-items:center}
     .fact-drink-stage:before{content:"";position:absolute;inset:4%;border-radius:50%;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.16),rgba(255,255,255,.045) 56%,rgba(255,255,255,.01) 72%);border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 12px rgba(255,255,255,.03),0 20px 50px rgba(0,0,0,.24)}
     .fact-drink-disc{position:relative;z-index:2;width:88%;aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 22px 48px rgba(0,0,0,.38);animation:coffeeSpin 11s linear infinite;will-change:transform}
     .fact-drink-disc img{width:100%;height:100%;object-fit:cover;object-position:19% 52%;transform:scale(2.18);filter:saturate(1.02) contrast(1.04)}
     .fact-drink-disc:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 -28px 50px rgba(0,0,0,.16);pointer-events:none}
     .hero-intro{font-size:19px;line-height:1.72;color:#dbe7e1;max-width:680px}
-    .hero-fact{justify-self:end;border-left:1px solid rgba(255,255,255,.28);padding-left:28px;max-width:320px}
-    .hero-fact b{display:block;font-family:"Playfair Display";font-size:34px;margin-bottom:8px}
-    .hero-fact span{font-size:13px;color:#cbd8d2;line-height:1.5}
+    .story-year-block{text-align:center}
+    .story-year-block .year{margin-top:2px}
     .scroll-cue{position:absolute;right:24px;bottom:74px;z-index:3;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#cbd8d2;writing-mode:vertical-rl;display:flex;align-items:center;gap:12px}
     .scroll-cue:after{content:"";width:1px;height:54px;background:rgba(255,255,255,.45)}
     .section{padding:110px 0}
@@ -132,8 +131,7 @@
       .nav-links.open{display:flex}
       .menu-btn{display:block}
       .hero-content{padding-top:112px}
-      .hero-bottom,.intro-grid,.chapter-grid{grid-template-columns:1fr}
-      .hero-fact{justify-self:start}
+      .intro-grid,.chapter-grid{grid-template-columns:1fr}
       .scroll-cue{display:none}
       .intro-sticky{position:static}
       .story-card{grid-template-columns:120px 1fr}
@@ -150,7 +148,7 @@
       .nav-inner{height:68px}
       .hero h1{font-size:54px}
       .hero-intro{font-size:16px}
-      .fact-drink-stage{width:min(230px,68vw);margin-bottom:18px}
+      .fact-drink-stage{width:min(190px,58vw);margin-bottom:16px}
       .fact-drink-disc{animation-duration:9s}
       .section,.mission,.closing{padding:78px 0}
       .intro-grid{gap:38px}
@@ -200,16 +198,7 @@
             <span class="eyebrow">About us</span>
             <h1>The Starbucks Story.</h1>
             <div class="hero-bottom">
-              <p class="hero-intro">Starbucks began in 1971 as a single store in Seattle’s historic Pike Place Market, offering fresh-roasted whole bean coffee.</p>
-              <div class="hero-fact">
-                <div class="fact-drink-stage" aria-label="One rotating Starbucks drink above 1971">
-                  <div class="fact-drink-disc">
-                    <img src="https://about.starbucks.com/uploads/2026/05/Starbucks-Horchata-scaled.jpeg" alt="Starbucks Horchata Frappuccino">
-                  </div>
-                </div>
-                <b>1971</b>
-                <span>A single Starbucks store opened in Seattle’s historic Pike Place Market.</span>
-              </div>
+              <p class="hero-intro">Starbucks began as a single store in Seattle’s historic Pike Place Market, offering fresh-roasted whole bean coffee.</p>
             </div>
           </div>
         </div>
@@ -226,7 +215,14 @@
         </div>
         <div class="story-stack">
           <article class="story-card reveal">
-            <div class="year">1971</div>
+            <div class="story-year-block">
+              <div class="fact-drink-stage" aria-label="One rotating Starbucks drink above 1971">
+                <div class="fact-drink-disc">
+                  <img src="https://about.starbucks.com/uploads/2026/05/Starbucks-Horchata-scaled.jpeg" alt="Starbucks Horchata Frappuccino">
+                </div>
+              </div>
+              <div class="year">1971</div>
+            </div>
             <div>
               <h3>Pike Place beginnings</h3>
               <p>Starbucks began as a single store in Seattle’s Pike Place Market, offering fresh-roasted whole bean coffees.</p>
@@ -270,25 +266,6 @@
             <b>6750</b>
             <span>Ayala Building, Makati City — the location of the first Starbucks store in the Philippines.</span>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section timeline-wrap">
-      <div class="shell">
-        <div class="timeline-head reveal">
-          <div>
-            <span class="eyebrow">Starbucks history</span>
-            <h2>Key milestones.</h2>
-          </div>
-          <p>These milestones come from Starbucks’ official company history and Starbucks Philippines About Us information.</p>
-        </div>
-        <div class="timeline" id="timeline">
-          <div class="timeline-progress" aria-hidden="true"></div>
-          <div class="milestone reveal"><b>1971</b><span>Starbucks begins with a single store in Seattle’s Pike Place Market.</span></div>
-          <div class="milestone reveal"><b>1983</b><span>Howard Schultz is inspired by Italian coffee bars and the coffeehouse tradition.</span></div>
-          <div class="milestone reveal"><b>1987</b><span>Howard Schultz returns and purchases Starbucks with local investors.</span></div>
-          <div class="milestone reveal"><b>1997</b><span>The first Starbucks store in the Philippines opens at 6750 Ayala Building in Makati.</span></div>
         </div>
       </div>
     </section>
@@ -400,7 +377,6 @@
     const storyCards=[...document.querySelectorAll('.story-card')];
     const chapter=document.getElementById('philippines');
     const chapterCopy=document.querySelector('.chapter-copy');
-    const timeline=document.getElementById('timeline');
     const valueCards=[...document.querySelectorAll('.value')];
     const mission=document.getElementById('mission');
     const closing=document.querySelector('.closing-card');
@@ -435,10 +411,6 @@
 
       const cp=localProgress(chapter)-.5;
       chapterCopy.style.setProperty('--chapter-copy-x',(cp*70)+'px');
-
-      const tr=timeline.getBoundingClientRect();
-      const fill=clamp((innerHeight*.72-tr.top)/(tr.height+innerHeight*.25),0,1)*100;
-      timeline.style.setProperty('--timeline-fill',fill+'%');
 
       const mp=localProgress(mission)-.5;
       valueCards.forEach((card,i)=>{
