@@ -45,28 +45,27 @@
     .eyebrow:before{content:"";width:28px;height:1px;background:currentColor}
     h1,h2,h3{font-family:"Playfair Display",serif;margin:0}
     p{margin:0}
-    .hero{min-height:100svh;display:grid;align-items:start;position:relative;overflow:hidden;background:#10281e;color:white}
-    .hero-bg{position:absolute;inset:0}
-    .hero-bg img{height:115%;object-fit:cover;filter:brightness(.42) saturate(.72);transform:translate3d(0,var(--hero-y,0px),0) scale(var(--hero-scale,1.09));animation:heroDrift 12s ease-in-out infinite alternate;will-change:transform}
-    .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,18,12,.12),rgba(5,18,12,.35) 45%,rgba(5,18,12,.88))}
-    .hero-content{position:relative;z-index:2;padding:104px 0 64px;transform:translate3d(0,var(--hero-content-y,0px),0);will-change:transform}
+    .hero{min-height:100svh;display:grid;align-items:start;position:relative;overflow:hidden;background:#f4efe7;color:#123b2e}
+    .hero-bg{display:none}
+    .hero-content{position:relative;z-index:2;padding:94px 0 58px;text-align:center;transform:translate3d(0,var(--hero-content-y,0px),0);will-change:transform}
     .hero-main{display:block}
-    .hero-copy{position:relative;z-index:2}
-    .hero-opening-drink{display:flex;justify-content:flex-start;margin:0 0 26px}
-    .hero-opening-drink .fact-drink-stage{width:min(300px,26vw);margin:0}
-    .hero .eyebrow{color:#bfe6d4}
-    .hero h1{font-size:clamp(58px,7.4vw,108px);line-height:.9;letter-spacing:-.05em;max-width:760px;margin-top:18px}
-    .hero-bottom{display:block;margin-top:38px}
+    .hero-copy{position:relative;z-index:2;max-width:920px;margin:0 auto}
+    .hero-opening-drink{display:flex;justify-content:center;margin:0 0 26px}
+    .hero-opening-drink .fact-drink-stage{width:min(500px,48vw);margin:0 auto}
+    .hero .eyebrow{color:#0b5d3b}
+    .hero h1{font-size:clamp(58px,7.4vw,108px);line-height:.9;letter-spacing:-.05em;max-width:860px;margin:18px auto 0;color:#0b5d3b}
+    .hero-bottom{display:block;margin-top:30px}
     .fact-drink-stage{position:relative;width:150px;aspect-ratio:1;margin:0 auto 18px;display:grid;place-items:center}
-    .fact-drink-stage:before{content:"";position:absolute;inset:4%;border-radius:50%;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.16),rgba(255,255,255,.045) 56%,rgba(255,255,255,.01) 72%);border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 12px rgba(255,255,255,.03),0 20px 50px rgba(0,0,0,.24)}
-    .fact-drink-disc{position:relative;z-index:2;width:88%;aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 22px 48px rgba(0,0,0,.38);animation:coffeeSpin 11s linear infinite;will-change:transform}
-    .fact-drink-disc img{width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:none;filter:saturate(1.02) contrast(1.03);background:#f3eee8}
-    .fact-drink-disc:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 -28px 50px rgba(0,0,0,.16);pointer-events:none}
-    .hero-intro{font-size:19px;line-height:1.72;color:#dbe7e1;max-width:680px}
+    .fact-drink-stage:before{content:"";position:absolute;inset:4%;border-radius:50%;border:5px solid rgba(0,98,65,.88);border-left-color:rgba(0,98,65,.12);border-bottom-color:rgba(0,98,65,.34);box-shadow:0 0 0 1px rgba(0,98,65,.08),0 24px 60px rgba(18,59,46,.12);animation:haloSpin 11s linear infinite}
+    .fact-drink-stage:after{content:"";position:absolute;inset:14%;border-radius:50%;border:1px solid rgba(0,98,65,.22);animation:haloSpinReverse 16s linear infinite}
+    .fact-drink-disc{position:relative;z-index:2;width:67%;height:88%;overflow:visible;box-shadow:none;animation:cupFloat 4.8s ease-in-out infinite;will-change:transform}
+    .fact-drink-disc img{width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:none;filter:saturate(1.02) contrast(1.02);background:transparent}
+    .fact-drink-disc:after{display:none}
+    .hero-intro{font-size:19px;line-height:1.72;color:#655f58;max-width:680px;margin:0 auto}
     .story-year-block{text-align:center}
     .story-year-block .year{margin-top:2px}
-    .scroll-cue{position:absolute;right:24px;bottom:74px;z-index:3;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#cbd8d2;writing-mode:vertical-rl;display:flex;align-items:center;gap:12px}
-    .scroll-cue:after{content:"";width:1px;height:54px;background:rgba(255,255,255,.45)}
+    .scroll-cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#0b5d3b;display:flex;flex-direction:column;align-items:center;gap:10px}
+    .scroll-cue:after{content:"↓";font-size:24px;line-height:1}
     .section{padding:110px 0}
     .intro-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:68px;align-items:start}
     .intro-sticky{position:sticky;top:120px}
@@ -128,8 +127,9 @@
     .footer-inner{border-top:1px solid var(--line);padding-top:26px;display:flex;justify-content:space-between;gap:20px}
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
     .reveal.show{opacity:1;transform:none}
-    @keyframes heroDrift{to{transform:scale(1.12) translate3d(-1.8%,1%,0)}}
-    @keyframes coffeeSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes haloSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes haloSpinReverse{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
+    @keyframes cupFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
     @media(max-width:900px){
       .nav-links{display:none;position:absolute;top:76px;left:0;right:0;background:var(--cream);padding:22px;flex-direction:column;border-bottom:1px solid var(--line)}
       .nav-links.open{display:flex}
@@ -152,8 +152,8 @@
       .nav-inner{height:68px}
       .hero h1{font-size:54px}
       .hero-intro{font-size:16px}
-      .hero-opening-drink{justify-content:center;margin-bottom:20px}
-      .hero-opening-drink .fact-drink-stage{width:min(250px,68vw)}
+      .hero-opening-drink{justify-content:center;margin-bottom:18px}
+      .hero-opening-drink .fact-drink-stage{width:min(330px,88vw)}
       .fact-drink-stage{width:min(190px,58vw);margin-bottom:16px}
       .story-opening-drink .fact-drink-stage{width:160px;margin:0}
       .fact-drink-disc{animation-duration:9s}
@@ -196,9 +196,6 @@
 
   <main>
     <section class="hero">
-      <div class="hero-bg">
-        <img src="./assets/images/about-bg.jpg" alt="Warm coffeehouse interior">
-      </div>
       <div class="shell hero-content">
         <div class="hero-main">
           <div class="hero-copy">
@@ -210,7 +207,7 @@
               </div>
             </div>
             <span class="eyebrow">About us</span>
-            <h1>The Starbucks Story.</h1>
+            <h1>The Starbucks Story</h1>
             <div class="hero-bottom">
               <p class="hero-intro">Starbucks began as a single store in Seattle’s historic Pike Place Market, offering fresh-roasted whole bean coffee.</p>
             </div>
@@ -381,7 +378,6 @@
     milestones.forEach(m=>milestoneObserver.observe(m));
 
     const hero=document.querySelector('.hero');
-    const heroImg=document.querySelector('.hero-bg img');
     const heroContent=document.querySelector('.hero-content');
     const storyCards=[...document.querySelectorAll('.story-card')];
     const chapter=document.getElementById('philippines');
@@ -406,8 +402,6 @@
       if(motionPaused) return;
 
       const heroP=clamp(scrollY/Math.max(innerHeight,1),0,1);
-      heroImg.style.setProperty('--hero-y',(heroP*95)+'px');
-      heroImg.style.setProperty('--hero-scale',(1.09+heroP*.07).toFixed(3));
       heroContent.style.setProperty('--hero-content-y',(heroP*-70)+'px');
 
       storyCards.forEach((card,i)=>{
