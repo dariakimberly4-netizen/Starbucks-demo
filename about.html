@@ -50,18 +50,18 @@
     .hero-bg img{height:115%;object-fit:cover;filter:brightness(.42) saturate(.72);transform:translate3d(0,var(--hero-y,0px),0) scale(var(--hero-scale,1.09));animation:heroDrift 12s ease-in-out infinite alternate;will-change:transform}
     .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,18,12,.12),rgba(5,18,12,.35) 45%,rgba(5,18,12,.88))}
     .hero-content{position:relative;z-index:2;padding:132px 0 64px;transform:translate3d(0,var(--hero-content-y,0px),0);will-change:transform}
-    .hero-main{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:46px;align-items:center}
+    .hero-main{display:block}
     .hero-copy{position:relative;z-index:2}
     .hero .eyebrow{color:#bfe6d4}
     .hero h1{font-size:clamp(58px,7.4vw,108px);line-height:.9;letter-spacing:-.05em;max-width:760px;margin-top:18px}
     .hero-bottom{display:grid;grid-template-columns:1fr .72fr;gap:34px;align-items:end;margin-top:38px}
-    .hero-drink-stage{position:relative;min-height:560px;display:grid;place-items:center}
-    .hero-drink-stage:before{content:"";position:absolute;width:min(38vw,500px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.16),rgba(255,255,255,.045) 54%,rgba(255,255,255,.01) 70%);border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 20px rgba(255,255,255,.03),0 34px 90px rgba(0,0,0,.28)}
-    .hero-drink-disc{position:relative;z-index:2;width:min(36vw,470px);aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 34px 80px rgba(0,0,0,.42);animation:coffeeSpin 11s linear infinite;will-change:transform}
-    .hero-drink-disc img{width:100%;height:100%;object-fit:cover;object-position:19% 52%;transform:scale(2.18);filter:saturate(1.02) contrast(1.04)}
-    .hero-drink-disc:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 -48px 80px rgba(0,0,0,.16);pointer-events:none}
+    .fact-drink-stage{position:relative;width:min(240px,28vw);aspect-ratio:1;margin:0 0 20px 0;display:grid;place-items:center}
+    .fact-drink-stage:before{content:"";position:absolute;inset:4%;border-radius:50%;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.16),rgba(255,255,255,.045) 56%,rgba(255,255,255,.01) 72%);border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 12px rgba(255,255,255,.03),0 20px 50px rgba(0,0,0,.24)}
+    .fact-drink-disc{position:relative;z-index:2;width:88%;aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 22px 48px rgba(0,0,0,.38);animation:coffeeSpin 11s linear infinite;will-change:transform}
+    .fact-drink-disc img{width:100%;height:100%;object-fit:cover;object-position:19% 52%;transform:scale(2.18);filter:saturate(1.02) contrast(1.04)}
+    .fact-drink-disc:after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 -28px 50px rgba(0,0,0,.16);pointer-events:none}
     .hero-intro{font-size:19px;line-height:1.72;color:#dbe7e1;max-width:680px}
-    .hero-fact{justify-self:end;border-left:1px solid rgba(255,255,255,.28);padding-left:28px;max-width:300px}
+    .hero-fact{justify-self:end;border-left:1px solid rgba(255,255,255,.28);padding-left:28px;max-width:320px}
     .hero-fact b{display:block;font-family:"Playfair Display";font-size:34px;margin-bottom:8px}
     .hero-fact span{font-size:13px;color:#cbd8d2;line-height:1.5}
     .scroll-cue{position:absolute;right:24px;bottom:74px;z-index:3;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#cbd8d2;writing-mode:vertical-rl;display:flex;align-items:center;gap:12px}
@@ -132,11 +132,6 @@
       .nav-links.open{display:flex}
       .menu-btn{display:block}
       .hero-content{padding-top:112px}
-      .hero-main{grid-template-columns:1fr;gap:18px}
-      .hero-copy{order:1}
-      .hero-drink-stage{order:2;min-height:430px}
-      .hero-drink-stage:before{width:min(78vw,430px)}
-      .hero-drink-disc{width:min(74vw,410px)}
       .hero-bottom,.intro-grid,.chapter-grid{grid-template-columns:1fr}
       .hero-fact{justify-self:start}
       .scroll-cue{display:none}
@@ -155,9 +150,8 @@
       .nav-inner{height:68px}
       .hero h1{font-size:54px}
       .hero-intro{font-size:16px}
-      .hero-drink-stage{min-height:350px}
-      .hero-drink-stage:before{width:min(86vw,350px)}
-      .hero-drink-disc{width:min(82vw,330px);animation-duration:9s}
+      .fact-drink-stage{width:min(230px,68vw);margin-bottom:18px}
+      .fact-drink-disc{animation-duration:9s}
       .section,.mission,.closing{padding:78px 0}
       .intro-grid{gap:38px}
       .story-card{grid-template-columns:1fr;padding:28px}
@@ -208,14 +202,14 @@
             <div class="hero-bottom">
               <p class="hero-intro">A story shaped by coffee, craft and human connection—from Seattle’s Pike Place Market to the everyday ritual of coffeehouses across the Philippines.</p>
               <div class="hero-fact">
+                <div class="fact-drink-stage" aria-label="One rotating Starbucks drink above 1971">
+                  <div class="fact-drink-disc">
+                    <img src="https://about.starbucks.com/uploads/2026/05/Starbucks-Horchata-scaled.jpeg" alt="Starbucks Horchata Frappuccino">
+                  </div>
+                </div>
                 <b>1971</b>
                 <span>The story began with a single store in Seattle’s historic Pike Place Market.</span>
               </div>
-            </div>
-          </div>
-          <div class="hero-drink-stage" aria-label="One rotating Starbucks drink">
-            <div class="hero-drink-disc">
-              <img src="https://about.starbucks.com/uploads/2026/05/Starbucks-Horchata-scaled.jpeg" alt="Starbucks Horchata Frappuccino">
             </div>
           </div>
         </div>
