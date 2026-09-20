@@ -45,15 +45,15 @@
     .eyebrow:before{content:"";width:28px;height:1px;background:currentColor}
     h1,h2,h3{font-family:"Playfair Display",serif;margin:0}
     p{margin:0}
-    .hero{min-height:100svh;display:grid;align-items:end;position:relative;overflow:hidden;background:#10281e;color:white}
+    .hero{min-height:100svh;display:grid;align-items:start;position:relative;overflow:hidden;background:#10281e;color:white}
     .hero-bg{position:absolute;inset:0}
     .hero-bg img{height:115%;object-fit:cover;filter:brightness(.42) saturate(.72);transform:translate3d(0,var(--hero-y,0px),0) scale(var(--hero-scale,1.09));animation:heroDrift 12s ease-in-out infinite alternate;will-change:transform}
     .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,18,12,.12),rgba(5,18,12,.35) 45%,rgba(5,18,12,.88))}
-    .hero-content{position:relative;z-index:2;padding:132px 0 64px;transform:translate3d(0,var(--hero-content-y,0px),0);will-change:transform}
+    .hero-content{position:relative;z-index:2;padding:104px 0 64px;transform:translate3d(0,var(--hero-content-y,0px),0);will-change:transform}
     .hero-main{display:block}
     .hero-copy{position:relative;z-index:2}
-    .hero-opening-drink{display:flex;justify-content:center;margin:0 0 30px}
-    .hero-opening-drink .fact-drink-stage{width:min(260px,24vw);margin:0}
+    .hero-opening-drink{display:flex;justify-content:flex-start;margin:0 0 26px}
+    .hero-opening-drink .fact-drink-stage{width:min(300px,26vw);margin:0}
     .hero .eyebrow{color:#bfe6d4}
     .hero h1{font-size:clamp(58px,7.4vw,108px);line-height:.9;letter-spacing:-.05em;max-width:760px;margin-top:18px}
     .hero-bottom{display:block;margin-top:38px}
@@ -134,7 +134,7 @@
       .nav-links{display:none;position:absolute;top:76px;left:0;right:0;background:var(--cream);padding:22px;flex-direction:column;border-bottom:1px solid var(--line)}
       .nav-links.open{display:flex}
       .menu-btn{display:block}
-      .hero-content{padding-top:112px}
+      .hero-content{padding-top:92px}
       .intro-grid,.chapter-grid{grid-template-columns:1fr}
       .scroll-cue{display:none}
       .intro-sticky{position:static}
@@ -152,8 +152,8 @@
       .nav-inner{height:68px}
       .hero h1{font-size:54px}
       .hero-intro{font-size:16px}
-      .hero-opening-drink{margin-bottom:22px}
-      .hero-opening-drink .fact-drink-stage{width:min(220px,62vw)}
+      .hero-opening-drink{justify-content:center;margin-bottom:20px}
+      .hero-opening-drink .fact-drink-stage{width:min(250px,68vw)}
       .fact-drink-stage{width:min(190px,58vw);margin-bottom:16px}
       .story-opening-drink .fact-drink-stage{width:160px;margin:0}
       .fact-drink-disc{animation-duration:9s}
@@ -205,7 +205,7 @@
             <div class="hero-opening-drink" aria-label="Rotating Starbucks drink at the beginning of the story">
               <div class="fact-drink-stage">
                 <div class="fact-drink-disc">
-                  <img src="./assets/images/starbucks-rotating-drink.jpg" alt="Starbucks drink">
+                  <img src="./assets/images/starbucks-opening-drink-v16.jpg?v=16" alt="Starbucks drink">
                 </div>
               </div>
             </div>
