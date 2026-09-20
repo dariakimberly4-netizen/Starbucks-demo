@@ -1,1423 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Restoran</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <style>
-      header.scrolled .menus > ul > li::after {
-        background-color: var(--text-color-white);
-      }
-      
-    </style>
-  </head>
-  <body>
-
-    <div class="loader">
-      <i class="fas fa-utensils loader-icone"></i>
-      <p>Restoran</p>
-      <div class="loader-ellipses">
-        <span></span>
-        <span></span>
-        <span></span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b5d3b" />
+  <title>Starbucks Demo — Coffeehouse Experience</title>
+  <meta name="description" content="A premium Starbucks-inspired café concept demo built from the Restoran template." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green:#0b5d3b;
+      --green-2:#143f32;
+      --green-3:#dfeee7;
+      --cream:#f5f0e8;
+      --sand:#e8dece;
+      --ink:#18221d;
+      --muted:#6b756f;
+      --white:#fff;
+      --shadow:0 20px 60px rgba(13,49,36,.16);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:"DM Sans",sans-serif;background:var(--cream);color:var(--ink)}
+    img{display:block;width:100%}
+    a{color:inherit;text-decoration:none}
+    button,a{tap-highlight-color:transparent}
+    .shell{width:min(1180px,calc(100% - 40px));margin:auto}
+    .nav{position:fixed;inset:0 0 auto;z-index:20;background:rgba(245,240,232,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(24,34,29,.08)}
+    .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em}
+    .mark{width:38px;height:38px;border-radius:50%;background:var(--green);display:grid;place-items:center;color:white;font-family:"Playfair Display";font-size:20px;box-shadow:0 8px 22px rgba(11,93,59,.25)}
+    .nav-links{display:flex;gap:28px;align-items:center;font-size:14px;font-weight:700}
+    .nav-links a{position:relative}
+    .nav-links a:after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--green);transition:.25s}
+    .nav-links a:hover:after{width:100%}
+    .pill{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font-weight:800;border:1px solid transparent;transition:.25s}
+    .pill.primary{background:var(--green);color:white;box-shadow:0 12px 30px rgba(11,93,59,.22)}
+    .pill.primary:hover{transform:translateY(-2px);background:#084d31}
+    .pill.ghost{border-color:rgba(24,34,29,.18);background:rgba(255,255,255,.45)}
+    .menu-btn{display:none;border:0;background:transparent;font-size:28px}
+    .hero{min-height:100svh;padding:130px 0 70px;display:grid;align-items:center;overflow:hidden}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:60px;align-items:center}
+    .eyebrow{display:inline-flex;gap:10px;align-items:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--green)}
+    .eyebrow:before{content:"";width:30px;height:1px;background:var(--green)}
+    h1,h2,h3{font-family:"Playfair Display",serif;margin:0}
+    h1{font-size:clamp(56px,7.4vw,106px);line-height:.93;letter-spacing:-.045em;max-width:760px}
+    .hero-copy p{font-size:18px;line-height:1.7;color:var(--muted);max-width:600px;margin:28px 0}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .hero-note{margin-top:26px;font-size:12px;color:#7f8983}
+    .hero-visual{position:relative}
+    .hero-frame{height:min(72vh,720px);min-height:520px;border-radius:44px;overflow:hidden;box-shadow:var(--shadow);position:relative;background:#1a281f}
+    .hero-frame img{height:100%;object-fit:cover;filter:saturate(.8) contrast(1.05);transform:scale(1.02);animation:drift 12s ease-in-out infinite alternate}
+    .hero-frame:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(10,28,20,.52))}
+    .float-card{position:absolute;left:-42px;bottom:42px;width:min(290px,68%);background:rgba(255,255,255,.92);backdrop-filter:blur(14px);padding:20px;border-radius:22px;box-shadow:0 18px 55px rgba(13,49,36,.22)}
+    .float-card strong{display:block;font-size:16px;margin-bottom:5px}
+    .float-card span{font-size:13px;color:var(--muted)}
+    .section{padding:110px 0}
+    .section.alt{background:#e6eee8}
+    .section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:44px}
+    .section-head h2{font-size:clamp(42px,5vw,72px);line-height:1}
+    .section-head p{max-width:500px;color:var(--muted);line-height:1.7;margin:0}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:white;border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 35px rgba(24,34,29,.07);transition:.28s}
+    .card:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(24,34,29,.12)}
+    .card-media{height:320px;overflow:hidden;background:#ddd}
+    .card-media img{height:100%;object-fit:cover;transition:.45s}
+    .card:hover img{transform:scale(1.04)}
+    .card-body{padding:24px}
+    .card-body h3{font-size:27px;margin-bottom:7px}
+    .card-body p{margin:0;color:var(--muted);line-height:1.6}
+    .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch}
+    .story-photo{border-radius:36px;overflow:hidden;min-height:560px;box-shadow:var(--shadow)}
+    .story-photo img{height:100%;object-fit:cover}
+    .story-copy{border-radius:36px;background:var(--green-2);color:white;padding:clamp(34px,5vw,72px);display:flex;flex-direction:column;justify-content:center}
+    .story-copy .eyebrow{color:#bce3d1}
+    .story-copy .eyebrow:before{background:#bce3d1}
+    .story-copy h2{font-size:clamp(44px,5vw,76px);line-height:1.02;margin:18px 0 24px}
+    .story-copy p{color:#d9e4df;line-height:1.8;font-size:17px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+    .stat{border-top:1px solid rgba(255,255,255,.2);padding-top:14px}
+    .stat b{display:block;font-family:"Playfair Display";font-size:28px}
+    .stat span{font-size:12px;color:#c7d5cf}
+    .experience{position:relative;overflow:hidden;border-radius:38px;background:#111;color:white;min-height:560px;display:flex;align-items:end;padding:58px;box-shadow:var(--shadow)}
+    .experience:before{content:"";position:absolute;inset:0;background:url("./assets/images/about-bg.jpg") center/cover no-repeat;filter:brightness(.58) saturate(.75);transform:scale(1.03)}
+    .experience:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,22,15,.9),rgba(8,22,15,.2))}
+    .experience-content{position:relative;z-index:2;max-width:660px}
+    .experience h2{font-size:clamp(46px,6vw,82px);line-height:.98}
+    .experience p{font-size:17px;line-height:1.75;color:#d7dfdb;margin:22px 0 28px}
+    .visit{display:grid;grid-template-columns:1fr .9fr;gap:24px}
+    .visit-box{background:white;border-radius:32px;padding:40px;box-shadow:0 10px 35px rgba(24,34,29,.07)}
+    .visit-box h3{font-size:34px;margin-bottom:12px}
+    .visit-box p{color:var(--muted);line-height:1.7}
+    .visit-list{display:grid;gap:14px;margin-top:24px}
+    .visit-item{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-top:1px solid #ece7dd}
+    .dot{width:12px;height:12px;border-radius:50%;background:var(--green);margin-top:7px;flex:0 0 auto}
+    .cta{background:var(--green);color:white;border-radius:36px;padding:46px;display:flex;flex-direction:column;justify-content:space-between;min-height:100%}
+    .cta h3{font-size:44px;line-height:1.05}
+    .cta p{color:#dcebe4;line-height:1.7}
+    footer{padding:34px 0 44px;color:#6f7973;font-size:13px}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;border-top:1px solid rgba(24,34,29,.12);padding-top:26px}
+    .reveal{opacity:0;transform:translateY(22px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+    .reveal.show{opacity:1;transform:none}
+    @keyframes drift{to{transform:scale(1.075) translate3d(-1.5%,1%,0)}}
+    @media(max-width:900px){
+      .nav-links{display:none;position:absolute;top:76px;left:0;right:0;background:var(--cream);padding:20px;flex-direction:column;border-bottom:1px solid rgba(24,34,29,.1)}
+      .nav-links.open{display:flex}
+      .menu-btn{display:block}
+      .hero{padding-top:110px}
+      .hero-grid,.story-grid,.visit{grid-template-columns:1fr}
+      .hero-grid{gap:38px}
+      .hero-frame{min-height:470px;height:62vh}
+      .float-card{left:18px;bottom:18px}
+      .cards{grid-template-columns:1fr}
+      .card-media{height:400px}
+      .section-head{align-items:start;flex-direction:column}
+      .story-photo{min-height:430px}
+      .experience{padding:36px;min-height:540px}
+    }
+    @media(max-width:560px){
+      .shell{width:min(100% - 24px,1180px)}
+      .nav-inner{height:68px}
+      .brand span:last-child{font-size:14px}
+      .hero{padding-top:94px}
+      h1{font-size:54px}
+      .hero-copy p{font-size:16px}
+      .hero-frame{min-height:410px;height:55vh;border-radius:30px}
+      .section{padding:78px 0}
+      .card-media{height:300px}
+      .story-copy,.visit-box,.cta{padding:30px}
+      .story-photo,.story-copy,.experience,.visit-box,.cta{border-radius:28px}
+      .stats{grid-template-columns:1fr}
+      .experience{padding:28px}
+      .footer-inner{flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+      .reveal{opacity:1;transform:none}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="#top" aria-label="Starbucks Demo home">
+        <span class="mark">S</span>
+        <span>STARBUCKS DEMO</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#featured">Featured</a>
+        <a href="#story">Our Story</a>
+        <a href="#experience">Experience</a>
+        <a href="#visit">Visit</a>
       </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
     </div>
+  </nav>
 
-    <header>
-      <div class="container header my-3 d-none d-lg-flex">
-        <div class="logo">
-          <a href="./index.html">
-            <i class="fa fa-utensils me-3"></i>
-            <h1 class="mb-0">Restoran</h1>
-          </a>
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Coffeehouse concept</span>
+          <h1>More than coffee. A place to belong.</h1>
+          <p>A cinematic café experience built from your Restoran fork—warmer, calmer, more premium, and designed to feel like a modern coffeehouse rather than a template.</p>
+          <div class="hero-actions">
+            <a class="pill primary" href="#featured">Explore the menu</a>
+            <a class="pill ghost" href="#story">Discover the story</a>
+          </div>
+          <div class="hero-note">Concept portfolio demo. Not an official Starbucks website.</div>
         </div>
-        <div class="menus">
-          <ul class="d-flex mb-0">
-            <li class="list-unstyled py-2">
-              <a class="text-decoration-none text-uppercase p-4" href="./index.html"
-                >Home</a
-              >
-            </li>
-            <li class="list-unstyled py-2">
-              <a class="text-decoration-none text-uppercase p-4" href="./about.html"
-                >About</a
-              >
-            </li>
-            <li class="list-unstyled py-2">
-              <a class="text-decoration-none text-uppercase p-4" href="./reservation.html"
-                >Reservation</a
-              >
-            </li>
-            <li class="list-unstyled py-2">
-              <a class="text-decoration-none text-uppercase p-4" href="./menu.html"
-                >Menu</a
-              >
-            </li>
-            <li class="list-unstyled py-2">
-              <a class="text-decoration-none text-uppercase p-4" href="./contact.html"
-                >Contact</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div class="icons">
-          <a class="text-decoration-none" id="searchBtn" href="#">
-            <i class="fa fa-search me-3"></i>
-          </a>
-          <a class="text-decoration-none" id="shoppingbutton" href="#">
-            <i class="fa fa-shopping-bag me-3"></i>
-          </a>
+        <div class="hero-visual reveal">
+          <div class="hero-frame">
+            <img src="./assets/images/banner.jpg" alt="Warm café dining experience" />
+          </div>
+          <div class="float-card">
+            <strong>Slow mornings. Better coffee.</strong>
+            <span>A richer visual direction with subtle motion, generous spacing and mobile-first interaction.</span>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="d-flex justify-content-around py-3 align-items-center d-lg-none">
-        <div id="hamburger">
-          <i class="fa fa-2x fa-bars me-3 text-white"></i>
-        </div>
-        <div class="mobile-nav-logo">
-          <div class="logo">
-            <a href="./index.html">
-              <i class="fa fa-utensils me-3"></i>
-              <h1 class="mb-0">Restoran</h1>
-            </a>
-          </div>
-        </div>
-        <div class="mobile-nav-icons">
-          <div class="icons">
-            <a class="text-decoration-none" id="searchBtnMobile" href="#">
-              <i class="fa fa-search me-3"></i>
-            </a>
-            <a class="text-decoration-none" id="shoppingbuttonMobile" href="#">
-              <i class="fa fa-shopping-bag me-3"></i>
-            </a>
-          </div>
-        </div>
-        <div class="position-fixed w-75 bg-white h-100 top-0 start-0" id="mobile-menu">
-          <div id="hamburger-cross" class="d-flex justify-content-end align-items-center py-2">
-            <i class="fa fa-2x fa-plus me-3 "></i>
-          </div>
-          <div class="menus">
-            <ul class="d-flex flex-column ps-2 mb-0 mt-4">
-              <li class="list-unstyled py-2">
-                <a class="text-dark text-decoration-none text-uppercase p-4" href="#"
-                  >Home</a
-                >
-              </li>
-              <li class="list-unstyled py-2">
-                <a class="text-dark text-decoration-none text-uppercase p-4" href="./about.html"
-                  >About</a
-                >
-              </li>
-              <li class="list-unstyled py-2">
-                <a class="text-dark text-decoration-none text-uppercase p-4" href="./reservation.html"
-                  >Reservation</a
-                >
-              </li>
-              <li class="list-unstyled py-2">
-                <a class="text-dark text-decoration-none text-uppercase p-4" href="./menu.html"
-                  >Menu</a
-                >
-              </li>
-              <li class="list-unstyled py-2">
-                <a class="text-dark text-decoration-none text-uppercase p-4" href="./contact.html"
-                  >Contact</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <div class="search-bar d-none" id="search-container">
-      <div class="close-btn" id="search-close-btn">
-        <i class="fa fa-close"></i>
-      </div>
-      <div class="search-bar-wrapper">
-        <input type="search" placeholder="Enter any text here..." />
-        <div class="search-button">
-          <a href="#"><i class="fa fa-search"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="shopping-cart">
-      <div class="shopping-cart-header d-flex justify-content-between">
-        <h2>Review your Cart</h2>
-        <i class="fa fa-close"></i>
-      </div>
-      <div class="shopping-cart-body">
-        <div class="row shopping-cart-item d-flex justify-content-between">
-          <div class="col-2 d-flex align-items-center">
-            <img src="./assets/images/product-2a.jpg" alt="">
-          </div>
-          <div class="col-8">
-            <h3>The Cracker Barrel's Country Boy Breakfast</h3>
-            <div class="shopping-cart-counter">
-              <i class="fa fa-minus"></i>
-              <span>1</span>
-              <i class="fa fa-plus"></i>
-            </div>
-          </div>
-          <div class="col-2 item-price d-flex align-items-end">
-            <p class="mb-0 text-center">$ 25.0</p>
-          </div>
-        </div>
-        <div class="row shopping-cart-item d-flex justify-content-between">
-          <div class="col-2 d-flex align-items-center">
-            <img src="./assets/images/product-2b.jpg" alt="">
-          </div>
-          <div class="col-8">
-            <h3>Old Timer's Meat Breakfast</h3>
-            <div class="shopping-cart-counter">
-              <i class="fa fa-minus"></i>
-              <span>1</span>
-              <i class="fa fa-plus"></i>
-            </div>
-          </div>
-          <div class="col-2 item-price d-flex align-items-end">
-            <p class="mb-0 text-center">$ 12.0</p>
-          </div>
-        </div>
-        <div class="row shopping-cart-item d-flex justify-content-between">
-          <div class="col-2 d-flex align-items-center">
-            <img src="./assets/images/product-2c.jpg" alt="">
-          </div>
-          <div class="col-8">
-            <h3>Uncle Herschel's Favorite</h3>
-            <div class="shopping-cart-counter">
-              <i class="fa fa-minus"></i>
-              <span>1</span>
-              <i class="fa fa-plus"></i>
-            </div>
-          </div>
-          <div class="col-2 item-price d-flex align-items-end">
-            <p class="mb-0 text-center">$ 25.0</p>
-          </div>
-        </div>
-        <div class="row shopping-cart-item d-flex justify-content-between">
-          <div class="col-2 d-flex align-items-center">
-            <img src="./assets/images/product-2d.jpg" alt="">
-          </div>
-          <div class="col-8">
-            <h3>Grandpa's Country Fried Breakfast</h3>
-            <div class="shopping-cart-counter">
-              <i class="fa fa-minus"></i>
-              <span>1</span>
-              <i class="fa fa-plus"></i>
-            </div>
-          </div>
-          <div class="col-2 item-price d-flex align-items-end">
-            <p class="mb-0 text-center">$ 30.0</p>
-          </div>
-        </div>
-      </div>
-      <div class="shopping-cart-footer">
-        <div class="d-flex justify-content-between px-3 py-2">
+    <section class="section alt" id="featured">
+      <div class="shell">
+        <div class="section-head reveal">
           <div>
-            <h2 class="mb-0">Subtotal</h2>
-            <p class="mb-0">Shipping & taxes calculated at checkout</p>
+            <span class="eyebrow">Featured now</span>
+            <h2>Made for the moment.</h2>
           </div>
-          <div class="d-flex align-items-end">
-            <p class="footet-total-price mb-0">$ 92.0</p>
+          <p>Three easy entry points for guests: a signature drink, a comforting bite and a seasonal favorite.</p>
+        </div>
+        <div class="cards">
+          <article class="card reveal">
+            <div class="card-media"><img src="./assets/images/product-2a.jpg" alt="Signature café favorite"></div>
+            <div class="card-body">
+              <h3>Signature Coffee</h3>
+              <p>Bold, smooth and crafted to feel familiar from the very first sip.</p>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="card-media"><img src="./assets/images/product-2b.jpg" alt="Fresh café food"></div>
+            <div class="card-body">
+              <h3>Café Pairing</h3>
+              <p>A simple, comforting bite designed to sit perfectly beside your drink.</p>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="card-media"><img src="./assets/images/product-2c.jpg" alt="Seasonal menu item"></div>
+            <div class="card-body">
+              <h3>Seasonal Pick</h3>
+              <p>A rotating favorite that gives the experience a reason to feel new again.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="shell story-grid">
+        <div class="story-photo reveal">
+          <img src="./assets/images/about-1.jpg" alt="Restaurant team preparing food and drinks">
+        </div>
+        <div class="story-copy reveal">
+          <span class="eyebrow">Our story</span>
+          <h2>Every cup carries a little ritual.</h2>
+          <p>This redesign shifts the old Restoran template into an editorial coffeehouse story: quieter typography, deeper greens, soft cream surfaces, intentional photography and movement that never competes with the content.</p>
+          <div class="stats">
+            <div class="stat"><b>01</b><span>Warm welcome</span></div>
+            <div class="stat"><b>02</b><span>Thoughtful craft</span></div>
+            <div class="stat"><b>03</b><span>Shared moments</span></div>
           </div>
         </div>
-          <div class="d-flex justify-content-between px-2">
-            <div class="footer-checkout">
-              <div class="anim-layer"></div>
-              <a href="#">Checkout</a>
-            </div>
-            <div class="footer-shopping">
-              <div class="anim-layer"></div>
-              <a href="#">Continue Shopping</a>
-            </div>
-          </div>
       </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="shell">
+        <div class="experience reveal">
+          <div class="experience-content">
+            <span class="eyebrow" style="color:#c8e9da">The coffeehouse</span>
+            <h2>Stay for more than the drink.</h2>
+            <p>The visual language is designed to feel comfortable on both desktop and mobile: large readable type, easy tap targets, restrained motion and a clear path from discovery to visit.</p>
+            <a class="pill primary" href="#visit" style="background:white;color:var(--green)">Plan your visit</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="visit">
+      <div class="shell visit">
+        <div class="visit-box reveal">
+          <span class="eyebrow">Visit</span>
+          <h3>Your next coffee moment starts here.</h3>
+          <p>This demo keeps the experience simple and presentation-ready while leaving space for you to add real store locations, ordering, rewards or your existing Starbucks menu project later.</p>
+          <div class="visit-list">
+            <div class="visit-item"><span class="dot"></span><div><strong>Responsive layout</strong><br><span>Designed for phone, tablet and desktop.</span></div></div>
+            <div class="visit-item"><span class="dot"></span><div><strong>Gentle motion</strong><br><span>Scroll reveals and slow hero movement without visual overload.</span></div></div>
+            <div class="visit-item"><span class="dot"></span><div><strong>Portfolio friendly</strong><br><span>Clean enough to present as a redesign case study.</span></div></div>
+          </div>
+        </div>
+        <div class="cta reveal">
+          <div>
+            <span class="eyebrow" style="color:#cbe7da">Next upgrade</span>
+            <h3>Turn the menu into the main event.</h3>
+            <p>We can connect this homepage to your interactive Starbucks menu experience next, so the website feels like one complete product.</p>
+          </div>
+          <a class="pill ghost" href="#featured" style="border-color:rgba(255,255,255,.38);color:white;width:max-content">Back to featured</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>© 2026 Starbucks Demo — portfolio concept.</span>
+      <span>Unofficial concept; not affiliated with or endorsed by Starbucks.</span>
     </div>
-    
-    <main>
-      <section class="banner py-5">
-        <div class="container py-5">
-          <div class="row">
-            <div class="col-md-6 banner-content pe-5" data-aos="fade-right" data-aos-delay="3000">
-              <h1 class="display-2">Enjoy Our <br> Delicious Meal</h1>
-                <p>
-                  Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet
-                </p>
-                <div class="book-a-table">
-                  <div class="anim-layer"></div>
-                  <a href="#">Book a table</a>
-                </div>
-            </div>
-            <div class="col-md-6 banner-img" data-aos="fade-left" data-aos-delay="3000">
-              <img class="img img-fluid mt-5 mt-lg-0" src="./assets/images/banner-img.png" alt="">
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="services my-5 py-5">
-        <div class="container">
-          <div class="row gy-4">
-            <div class="col-md-3">
-              <div class="cards px-4 py-5" data-aos="fade-right">
-                <div class="anim-layer"></div>
-                <div class="icon"> 
-                  <i class="fa fa-3x fa-user-tie mb-4"></i>
-                </div>
-                <div class="heading">
-                  <h5>Master Chefs</h5>
-                </div>
-                <div class="para">
-                  <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="cards px-4 py-5" data-aos="fade-down">
-                <div class="anim-layer"></div>
-                <div class="icon">
-                  <i class="fa fa-3x fa-utensils mb-4"></i>
-                </div>
-                <div class="heading">
-                  <h5>Quality Food</h5>
-                </div>
-                <div class="para">
-                  <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="cards px-4 py-5" data-aos="fade-up">
-                <div class="anim-layer"></div>
-                <div class="icon">
-                  <i class="fa fa-3x fa-cart-plus mb-4"></i>
-                </div>
-                <div class="heading">
-                  <h5>Online Order</h5>
-                </div>
-                <div class="para">
-                  <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="cards px-4 py-5" data-aos="fade-left">
-                <div class="anim-layer"></div>
-                <div class="icon">
-                  <i class="fa fa-3x fa-headset mb-4"></i>
-                </div>
-                <div class="heading">
-                  <h5>24/7 Service</h5>
-                </div>
-                <div class="para">
-                  <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  </footer>
 
-      <section class="about-us py-5 my-5">
-        <div class="container">
-          <div class="row gy-5 g-lg-5 align-items-center">
-              <div class="col-lg-6 about-img-box">
-                  <div class="row g-3">
-                      <div class="col-6" data-aos="fade-right">
-                          <img class="img-fluid rounded w-100" src="./assets/images/about-1.jpg">
-                      </div>
-                      <div class="col-6 text-right" data-aos="fade-down">
-                          <img class="img-fluid rounded w-75" src="./assets/images/about-2.jpg">
-                      </div>
-                      <div class="col-6 text-end" data-aos="fade-right">
-                          <img class="img-fluid rounded w-75" src="./assets/images/about-3.jpg">
-                      </div>
-                      <div class="col-6 text-end" data-aos="fade-up">
-                          <img class="img-fluid rounded w-100" src="./assets/images/about-4.jpg">
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-6 about-content" data-aos="fade-left">
-                  <h5 class="section-title">About Us</h5>
-                  <h2 class="mb-4 dis">Welcome to <i class="fa fa-utensils  me-2"></i>Restoran</h2>
-                  <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos erat ipsum et lorem et sit, sed stet lorem sit.</p>
-                  <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                  <div class="row g-4 mb-4 about-extra">
-                      <div class="col-sm-6">
-                          <div class="d-flex align-items-center px-3 about-experience">
-                              <h1 class="flex-shrink-0  mb-0">15</h1>
-                              <div class="ps-4">
-                                  <p class="mb-0">Years of</p>
-                                  <h6 class="text-uppercase mb-0">Experience</h6>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6">
-                          <div class="d-flex align-items-center px-3 about-popular">
-                              <h1 class="flex-shrink-0  mb-0">50</h1>
-                              <div class="ps-4">
-                                  <p class="mb-0">Popular</p>
-                                  <h6 class="text-uppercase mb-0">Master Chefs</h6>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="book-a-table">
-                    <div class="anim-layer"></div>
-                    <a href="#">Read More</a>
-                  </div>
-              </div>
-          </div>
-        </div>
-      </section>
+  <script>
+    const menuBtn=document.getElementById('menuBtn');
+    const navLinks=document.getElementById('navLinks');
+    menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
 
-      <section class="our-menu py-5 my-5">
-        <div class="container">
-          <div class="row" data-aos="fade-right">
-            <div class="section-title text-center">
-              <h5>Our Menu</h5>
-              <h2 class="display-5 fw-bold">Tasty And Good Price</h2>
-            </div>
-          </div>
-          <div class="row  position-relative">
-            <div data-aos="fade-left" class="slider slider-indicators-wrapper justify-content-center">
-              <div class="slider-indicators">
-                <div class="indicators-icon active text-center">
-                  <i class="fas fa-coffee fa-2x"></i>
-                </div>
-                <div class="indicators-title text-center">
-                  <h5>
-                    Breakfast
-                  </h5>
-                </div>
-              </div>
-              <div class="slider-indicators">
-                <div class="indicators-icon text-center">
-                  <i class="fas fa-utensils fa-2x"></i>
-                </div>
-                <div class="indicators-title text-center">
-                  <h5>
-                    Lunch
-                  </h5>
-                </div>
-              </div>
-              <div class="slider-indicators">
-                <div class="indicators-icon text-center">
-                  <i class="fas fa-hamburger fa-2x"></i>
-                </div>
-                <div class="indicators-title text-center">
-                  <h5>
-                    Dinner
-                  </h5>
-                </div>
-              </div>
-              <div class="slider-indicators">
-                <div class="indicators-icon text-center">
-                  <i class="fas fa-ice-cream fa-2x"></i>
-                </div>
-                <div class="indicators-title text-center">
-                  <h5>
-                    Desserts
-                  </h5>
-                </div>
-              </div>
-              <div class="slider-indicators">
-                <div class="indicators-icon text-center">
-                  <i class="fas fa-cocktail fa-2x"></i>
-                </div>
-                <div class="indicators-title text-center">
-                  <h5>
-                    Drink
-                  </h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="our-menus" class="slider" data-aos="fade-up">
-            <div>
-              <div class="row my-5 py-3">
-              <div class="col-lg-5">
-                <div class="pb-5 pb-lg-0">
-                  <img width="90%" src="./assets/images/menu-slider-dessert.png" alt="">
-                </div>
-              </div>
-              <div class="col-lg-7">
-                <div class="item-wrapper d-flex justify-content-between">
-                  <div class="item-left">
-                    <h5>The Cracker Barrel's Country Boy Breakfast</h5>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                  </div>
-                  <div class="item-right">
-                    <span class="item-price">
-                    <span class="price-symbol">$</span>
-                      25.0</span>
-                    <div class="item-btn">
-                      <a href="#">Order</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-wrapper d-flex justify-content-between">
-                  <div class="item-left">
-                    <h5>Uncle Herschel's Favorite</h5>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                  </div>
-                  <div class="item-right">
-                    <span class="item-price">
-                    <span class="price-symbol">$</span>
-                      45.0</span>
-                    <div class="item-btn">
-                      <a href="#">Order</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-wrapper d-flex justify-content-between">
-                  <div class="item-left">
-                    <h5>Grandpa's Country Fried Breakfast</h5>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                  </div>
-                  <div class="item-right">
-                    <span class="item-price">
-                    <span class="price-symbol">$</span>
-                      30.0</span>
-                    <div class="item-btn">
-                      <a href="#">Order</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-wrapper d-flex justify-content-between">
-                  <div class="item-left">
-                    <h5>Old Timer's Meat Breakfast</h5>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                  </div>
-                  <div class="item-right">
-                    <span class="item-price">
-                    <span class="price-symbol">$</span>
-                      12.0</span>
-                    <div class="item-btn">
-                      <a href="#">Order</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-wrapper d-flex justify-content-between">
-                  <div class="item-left">
-                    <h5>Chinese Chicken Bread Spicy Soup</h5>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                  </div>
-                  <div class="item-right">
-                    <span class="item-price">
-                    <span class="price-symbol">$</span>
-                      12.0</span>
-                    <div class="item-btn">
-                      <a href="#">Order</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
-            </div>
-            <div>
-              <div class="row my-5 py-3 ">
-                <div class="col-lg-5">
-                  <div class="pb-5 pb-lg-0">
-                    <img width="90%" src="./assets/images/menu-slider-dinner.png" alt="">
-                  </div>
-                </div>
-                <div class="col-lg-7">
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>The Cracker Barrel's Country Boy Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        25.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Uncle Herschel's Favorite</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        45.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Grandpa's Country Fried Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        30.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Old Timer's Meat Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        12.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Chinese Chicken Bread Spicy Soup</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        12.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="row my-5 py-3 ">
-                <div class="col-lg-5">
-                  <div class="pb-5 pb-lg-0">
-                    <img width="90%" src="./assets/images/menu-slider-dessert.png" alt="">
-                  </div>
-                </div>
-                <div class="col-lg-7">
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>The Cracker Barrel's Country Boy Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        25.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Uncle Herschel's Favorite</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        45.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Grandpa's Country Fried Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        30.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Old Timer's Meat Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        12.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Chinese Chicken Bread Spicy Soup</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        12.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="row my-5 py-3 ">
-                <div class="col-lg-5">
-                  <div class="pb-5 pb-lg-0">
-                    <img width="90%" src="./assets/images/menu-slider-lunch.png" alt="">
-                  </div>
-                </div>
-                <div class="col-lg-7">
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>The Cracker Barrel's Country Boy Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        25.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Uncle Herschel's Favorite</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        45.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Grandpa's Country Fried Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        30.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Old Timer's Meat Breakfast</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        12.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-wrapper d-flex justify-content-between">
-                    <div class="item-left">
-                      <h5>Chinese Chicken Bread Spicy Soup</h5>
-                      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum </p>
-                    </div>
-                    <div class="item-right">
-                      <span class="item-price">
-                      <span class="price-symbol">$</span>
-                        12.0</span>
-                      <div class="item-btn">
-                        <a href="#">Order</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="testimonials py-5 my-5">
-        <div class="container py-5">
-          <div class="row" data-aos="fade-right">
-            <div class="section-title text-center">
-              <h5>Testimonial</h5>
-              <h2 class="display-5 fw-bold">Our Customer Says</h2>
-            </div>
-          </div>
-          <div class="row">
-            <div class="testimonial-slider-wrapper" data-aos="fade-up">
-              <div class="slider-content pt-4 pb-4 mx-4">
-                <div>
-                  <div class="testi-content">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto vel ipsa dolore sunt vitae, culpa, dolor reiciendis facilis sed blanditiis repellat incidunt impedit iusto? Odio veniam beatae veritatis adipisci a!</p>
-                  </div>
-                  <div class="testi-info">
-                    <span class="name">Timothy Doe</span>
-                    <span class="position">Customer</span>
-                  </div>
-                </div>
-                <div>
-                  <div class="testi-content">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto vel ipsa dolore sunt vitae, culpa, dolor reiciendis facilis sed blanditiis repellat incidunt impedit iusto? Odio veniam beatae veritatis adipisci a!</p>
-                  </div>
-                  <div class="testi-info">
-                    <span class="name">Sarah	Ruiz</span>
-                    <span class="position">Director</span>
-                  </div>
-                </div>
-                <div>
-                  <div class="testi-content">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto vel ipsa dolore sunt vitae, culpa, dolor reiciendis facilis sed blanditiis repellat incidunt impedit iusto? Odio veniam beatae veritatis adipisci a!</p>
-                  </div>
-                  <div class="testi-info">
-                    <span class="name">Tracey Lewis</span>
-                    <span class="position">Designer</span>
-                  </div>
-                </div>
-                <div>
-                  <div class="testi-content">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto vel ipsa dolore sunt vitae, culpa, dolor reiciendis facilis sed blanditiis repellat incidunt impedit iusto? Odio veniam beatae veritatis adipisci a!</p>
-                  </div>
-                  <div class="testi-info">
-                    <span class="name">Jamie	Erickson</span>
-                    <span class="position">Manager</span>
-                  </div>
-                </div>
-              </div>
-              <div class="slider-nav-wrapper mx-5">
-                <div class="slider-nav">
-                  <div class="slider-nav-img active">
-                    <img src="./assets/images/testi-1.jpg" alt="">
-                  </div>
-                  <div class="slider-nav-img">
-                    <img src="./assets/images/testi-2.jpg" alt="">
-                  </div>
-                  <div class="slider-nav-img">
-                    <img src="./assets/images/testi-3.jpg" alt="">
-                  </div>
-                  <div class="slider-nav-img">
-                    <img src="./assets/images/testi-4.jpg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="our-chefs py-5">
-        <div class="container">
-          <div class="row" data-aos="fade-right">
-            <div class="section-title text-center">
-              <h5>Meet Our</h5>
-              <h2 class="display-6 fw-bold">Awesome Master Chefs</h2>
-            </div>
-          </div>
-
-          <div class="row our-chef-slider-wrapper py-5" data-aos="fade-left">
-            <div class="col-lg-4">
-              <div class="our-chef-slider d-flex flex-column align-items-center gap-4">
-                <img width="200px" src="./assets/images/team-1.png" alt="">
-                <div class="chef-slider-content">
-                  <h5 class="text-center d-block">Teresa Doe</h5>
-                  <p class="text-center mb-0">Head Chef</p>
-                  <div class="d-flex justify-content-center">
-                    <hr class="w-25 my-2">
-                  </div> 
-                  <ul class="list-unstyled d-flex justify-content-center">
-                    <li class="mx-2">
-                      <a href="https://www.facebook.com" target="_blank" class="text-white">
-                        <i class="fab fa-facebook-f"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.instagram.com" target="_blank" class="text-white">
-                        <i class="fab fa-instagram"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.twitter.com" target="_blank" class="text-white">
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.linkedin.com" target="_blank" class="text-white">
-                        <i class="fab fa-linkedin-in"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="our-chef-slider d-flex flex-column align-items-center gap-4">
-                <img width="200px" src="./assets/images/team-2.png" alt="">
-                <div class="chef-slider-content">
-                  <h5 class="text-center d-block">Teresa Doe</h5>
-                  <p class="text-center mb-0">Head Chef</p>
-                  <div class="d-flex justify-content-center">
-                    <hr class="w-25 my-2">
-                  </div> 
-                  <ul class="list-unstyled d-flex justify-content-center">
-                    <li class="mx-2">
-                      <a href="https://www.facebook.com" target="_blank" class="text-white">
-                        <i class="fab fa-facebook-f"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.instagram.com" target="_blank" class="text-white">
-                        <i class="fab fa-instagram"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.twitter.com" target="_blank" class="text-white">
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.linkedin.com" target="_blank" class="text-white">
-                        <i class="fab fa-linkedin-in"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="our-chef-slider d-flex flex-column align-items-center gap-4">
-                <img width="200px" src="./assets/images/team-3.png" alt="">
-                <div class="chef-slider-content">
-                  <h5 class="text-center d-block">Teresa Doe</h5>
-                  <p class="text-center mb-0">Head Chef</p>
-                  <div class="d-flex justify-content-center">
-                    <hr class="w-25 my-2">
-                  </div> 
-                  <ul class="list-unstyled d-flex justify-content-center">
-                    <li class="mx-2">
-                      <a href="https://www.facebook.com" target="_blank" class="text-white">
-                        <i class="fab fa-facebook-f"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.instagram.com" target="_blank" class="text-white">
-                        <i class="fab fa-instagram"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.twitter.com" target="_blank" class="text-white">
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.linkedin.com" target="_blank" class="text-white">
-                        <i class="fab fa-linkedin-in"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="our-chef-slider d-flex flex-column align-items-center gap-4">
-                <img width="200px" src="./assets/images/team-4.png" alt="">
-                <div class="chef-slider-content">
-                  <h5 class="text-center d-block">Teresa Doe</h5>
-                  <p class="text-center mb-0">Head Chef</p>
-                  <div class="d-flex justify-content-center">
-                    <hr class="w-25 my-2">
-                  </div> 
-                  <ul class="list-unstyled d-flex justify-content-center">
-                    <li class="mx-2">
-                      <a href="https://www.facebook.com" target="_blank" class="text-white">
-                        <i class="fab fa-facebook-f"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.instagram.com" target="_blank" class="text-white">
-                        <i class="fab fa-instagram"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.twitter.com" target="_blank" class="text-white">
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li class="mx-2">
-                      <a href="https://www.linkedin.com" target="_blank" class="text-white">
-                        <i class="fab fa-linkedin-in"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-      
-      <section class="reservation">
-        <img class="d-md-none d-lg-block" src="./assets/images/find-a-table.png" alt="">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-6 py-5 reservation-content px-5" data-aos="fade-right">
-              <div class="reservation-column py-5 px-3">
-                <h2 class="text-center text-white display-6 fw-bold">Make A Reservation</h2>
-                <p class="text-center text-white">You can call us directly at <span>225-88888</span></p>
-                <div class="row mt-5 pt-3">
-                  <div class="col-12 col-lg-6">
-                    <div class="input d-flex align-items-center">
-                      <i class="fa fa-phone py-2 px-3"></i>
-                      <input class="form-control bg-transparent border-0 px-3" type="text" placeholder="Number">
-                    </div>
-                  </div>
-                  <div class="col-12 col-lg-6 mt-4 mt-lg-0">
-                    <div class="input d-flex align-items-center">
-                      <i class="fa fa-person py-2 px-3"></i>
-                      <select class="form-select bg-transparent border-0" name="" id="">
-                        <option value="">1 Person</option>
-                        <option value="">2 Person</option>
-                        <option value="">3 Person</option>
-                        <option value="">4 Person</option>
-                        <option value="">5 Person</option>
-                        <option value="">6 Person</option>
-                        <option value="">7 Person</option>
-                        <option value="">8 Person</option>
-                        <option value="">9 Person</option>
-                        <option value="">10 Person</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-12 col-lg-6">
-                    <div class="input d-flex align-items-center">
-                      <i class="fa fa-calendar py-2 px-3"></i>
-                      <input class="form-control datepicker bg-transparent border-0 px-3" type="date" placeholder="Number">
-                    </div>
-                  </div>
-                  <div class="col-12 col-lg-6 mt-4 mt-lg-0">
-                    <div class="input d-flex align-items-center">
-                      <i class="fa fa-clock py-2 px-3"></i>
-                      <select type="text" placeholder="Time" class="form-select bg-transparent border-0">
-                        <option>7:00 AM</option>
-                        <option>8:00 AM</option>
-                        <option>9:00 AM</option>
-                        <option>10:00 AM</option>
-                        <option>11:00 AM</option>
-                        <option>12:00 AM</option>
-                        <option>1:00 PM</option>
-                        <option>2:00 PM</option>
-                        <option>3:00 PM</option>
-                        <option>4:00 PM</option>
-                        <option>5:00 PM</option>
-                        <option>6:00 PM</option>
-                        <option>7:00 PM</option>
-                        <option>8:00 PM</option>
-                        <option>9:00 PM</option>
-                        <option>10:00 PM</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center mt-5 pt-3">
-                  <div class="book-a-table">
-                    <div class="anim-layer"></div>
-                    <a href="#">Find Table</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 d-none d-md-block reservation-bg" data-aos="fade-left"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="our-services py-5 my-5">
-        <div class="container">
-          <div class="row">
-            <div class="section-title text-center" data-aos="fade-right">
-              <h5>Our Service</h5>
-              <h2 class="display-6 fw-bold">What We Focus On</h2>
-            </div>
-          </div>
-          <div class="row pt-5">
-            <div data-aos="fade-up-right" class="col-sm-12 col-md-6 col-lg-3 d-flex justify-content-center align-items-center flex-column">
-              <div class="icon-box">
-                <i class="fas fa-utensils fa-2x"></i>
-                <span class="number">1</span>
-              </div>
-              <h4>Reservation</h4>
-              <p class="text-center">Lorem ipsum dolor sit amet, tong consecteturto sed eiusmod incididunt utote labore et</p>
-            </div>
-            <div data-aos="fade-down" class="col-sm-12 col-md-6 col-lg-3 d-flex justify-content-center align-items-center flex-column">
-              <div class="icon-box">
-                <i class="fas fa-wine-glass-alt fa-2x"></i>
-                <span class="number">2</span>
-              </div>
-              <h4>Private Event</h4>
-              <p class="text-center">Lorem ipsum dolor sit amet, tong consecteturto sed eiusmod incididunt utote labore et</p>
-            </div>
-            <div data-aos="fade-up" class="col-sm-12 col-md-6 col-lg-3 d-flex justify-content-center align-items-center flex-column">
-              <div class="icon-box">
-                <i class="fas fa-laptop-house fa-2x"></i>
-                <span class="number">3</span>
-              </div>
-              <h4>Online Order</h4>
-              <p class="text-center">Lorem ipsum dolor sit amet, tong consecteturto sed eiusmod incididunt utote labore et</p>
-            </div>
-            <div data-aos="fade-up-left" class="col-sm-12 col-md-6 col-lg-3 d-flex justify-content-center align-items-center flex-column">
-              <div class="icon-box">
-                <i class="fas fa-motorcycle fa-2x"></i>
-                <span class="number">4</span>
-              </div>
-              <h4>Fast Delivery</h4>
-              <p class="text-center">Lorem ipsum dolor sit amet, tong consecteturto sed eiusmod incididunt utote labore et</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="our-gallery pt-5">
-        <div class="container-fluid pt-5">
-          <div class="row">
-            <div class="section-title text-center" data-aos="fade-right">
-              <h5>Our Gallery</h5>
-              <h2 class="text-white display-6 fw-bold">Fooday Hot Dishes</h2>
-            </div>
-          </div>
-          <div class="row pt-5">
-            <div class="col-md-3 p-0">
-              <div data-aos="fade-down-right" class="gallery-image gallery-image-one"></div>
-            </div>
-            <div class="col-md-6 p-0">
-              <div class="row m-0">
-                <div class="col-md-8 p-0">
-                  <div data-aos="fade-down" class="gallery-image-two"></div>
-                </div>
-                <div class="col-md-4 p-0">
-                  <div data-aos="fade-down" class="gallery-image-three"></div>
-                </div>
-              </div>
-              <div class="row m-0">
-                <div class="col-md-4 p-0">
-                  <div data-aos="fade-up" class="gallery-image-five"></div>
-                </div>
-                <div class="col-md-8 p-0">
-                  <div data-aos="fade-up" class="gallery-image-six"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 p-0">
-              <div data-aos="fade-up-left" class="gallery-image gallery-image-four"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="our-blog pt-5 my-5">
-        <div class="container">
-          <div class="row">
-            <div class="section-title text-center" data-aos="fade-right">
-              <h5>Updated from</h5>
-              <h2 class="display-6 fw-bold">Our Featured Blog</h2>
-            </div>
-          </div>
-          <div class="row pt-5">
-            <div class="col-lg-4 mb-5 mb-lg-0">
-              <div class="card" data-aos="fade-up-right">
-                <div class="blog-info d-flex py-3">
-                  <div class="blog-view px-3">
-                    <i class="fas fa-eye"></i>
-                    <span>18</span>
-                  </div>
-                  <div class="blog-comment px-3">
-                    <i class="fas fa-comment"></i>
-                    <span>18</span>
-                  </div>
-                  <div class="blog-author">
-                    <p class="mb-0 ps-3">Post By Admin</p>
-                  </div>
-                </div>
-                <div class="blog-featured-img">
-                  <img class="w-100" src="./assets/images/blog-grid-1.jpg" alt="">
-                </div>
-                <div class="blog-content px-4 pt-5 pb-4 position-relative">
-                  <div class="blog-date">
-                    <span class="day">12</span>
-                    <span class="month">Jun</span>
-                  </div>
-                  <h3 class="blog-title">
-                    <a href="javascript:void(0)">How To Cook The Spicy Chinese Noodle For Cold Weather</a>
-                  </h3>
-                  <p class="blog-description">
-                    Lorem ipsum dolor sit amet, consectetur, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-                  <div class="blog-readmore text-end">
-                    <a class="text-black text-decoration-none" href="javascript:void(0)">
-                        Read More 
-                        <i class="fa fa-angle-double-right">
-                      </i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-5 mb-lg-0">
-              <div class="card" data-aos="fade-down">
-                <div class="blog-info d-flex py-3">
-                  <div class="blog-view px-3">
-                    <i class="fas fa-eye"></i>
-                    <span>18</span>
-                  </div>
-                  <div class="blog-comment px-3">
-                    <i class="fas fa-comment"></i>
-                    <span>18</span>
-                  </div>
-                  <div class="blog-author">
-                    <p class="mb-0 ps-3">Post By Admin</p>
-                  </div>
-                </div>
-                <div class="blog-featured-img">
-                  <img class="w-100" src="./assets/images/blog-grid-1-1.jpg" alt="">
-                </div>
-                <div class="blog-content px-4 pt-5 pb-4 position-relative">
-                  <div class="blog-date">
-                    <span class="day">12</span>
-                    <span class="month">Jun</span>
-                  </div>
-                  <h3 class="blog-title">
-                    <a href="javascript:void(0)">How To Cook The Spicy Chinese Noodle For Cold Weather</a>
-                  </h3>
-                  <p class="blog-description">
-                    Lorem ipsum dolor sit amet, consectetur, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-                  <div class="blog-readmore text-end">
-                    <a class="text-black text-decoration-none" href="javascript:void(0)">
-                        Read More 
-                        <i class="fa fa-angle-double-right">
-                      </i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-5 mb-lg-0">
-              <div class="card" data-aos="fade-up-left">
-                <div class="blog-info d-flex py-3">
-                  <div class="blog-view px-3">
-                    <i class="fas fa-eye"></i>
-                    <span>18</span>
-                  </div>
-                  <div class="blog-comment px-3">
-                    <i class="fas fa-comment"></i>
-                    <span>18</span>
-                  </div>
-                  <div class="blog-author">
-                    <p class="mb-0 ps-3">Post By Admin</p>
-                  </div>
-                </div>
-                <div class="blog-featured-img">
-                  <img class="w-100" src="./assets/images/blog-grid-1-2.jpg" alt="">
-                </div>
-                <div class="blog-content px-4 pt-5 pb-4 position-relative">
-                  <div class="blog-date">
-                    <span class="day">12</span>
-                    <span class="month">Jun</span>
-                  </div>
-                  <h3 class="blog-title">
-                    <a href="javascript:void(0)">How To Cook The Spicy Chinese Noodle For Cold Weather</a>
-                  </h3>
-                  <p class="blog-description">
-                    Lorem ipsum dolor sit amet, consectetur, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-                  <div class="blog-readmore text-end">
-                    <a class="text-black text-decoration-none" href="javascript:void(0)">
-                        Read More 
-                        <i class="fa fa-angle-double-right">
-                      </i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          <div class="row pt-5">
-          
-          </div>
-        </div>
-      </section>
-
-      <section class="subscribe-us pb-5 mb-5">
-        <img class="d-none d-lg-block" src="./assets/images/subscribe-us.png" alt="" data-aos="fade-down-right">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-2">
-            </div>
-            <div class="col-lg-8 d-flex flex-column flex-md-row align-items-lg-center">
-              <div class="content" data-aos="fade-right">
-                <h5 class="display-6 text-black">Subcribe Us Now</h5>
-                <p>
-                  Get more news and delicious dishes everyday from us
-                </p>
-              </div>
-              <div class="subscribe-form d-flex ps-0 ms-0 ps-lg-5 ms-lg-5" data-aos="fade-left">
-                <div class="input-form w-100">
-                  <input class="border-0 px-3 w-100" type="email" placeholder="Email">
-                </div>
-                <div class="input-button">
-                  <a class="text-decoration-none" href="#">
-                    <i class="fa fa-paper-plane"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    
-
-    <a href="#" id="back-to-top">
-      <i class="fa-solid fa-angles-up"></i>
-    </a>
-
-    
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="footer-content col-xl-8  px-4">
-            <div class="row">
-              <div class="col-lg-6 px-0">
-                <div class="logo" data-aos="fade-down-right">
-                  <a href="./index.html">
-                    <i class="fa fa-utensils me-3"></i>
-                    <h1 class="mb-0">Restoran</h1>
-                  </a>
-                </div>
-              </div>
-              <div data-aos="fade-down" class="col-lg-6 pt-4 pt-lg-0 d-flex align-items-center justify-content-start justify-content-lg-end">
-                <div class="social-icons d-flex">
-                  <ul class="d-flex mb-0 ps-0">
-                    <li class="mx-2"><a class="text-decoration-none text-white" href="#"><i class="fab fa-facebook"></i></a></li>
-                    <li class="mx-2"><a class="text-decoration-none text-white" href="#"><i class="fab fa-twitter"></i></a></li>
-                    <li class="mx-2"><a class="text-decoration-none text-white" href="#"><i class="fab fa-pinterest"></i></a></li>
-                    <li class="mx-2"><a class="text-decoration-none text-white" href="#"><i class="fab fa-google-plus"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="row pt-5 content-desc" data-aos="fade-right">
-              <p class="px-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor.</p>
-            </div>
-            <div class="row" data-aos="fade-right">
-              <div class="d-flex flex-column flex-lg-row px-0 justify-content-between">
-                <div class="location d-flex align-items-center pe-2 py-3">
-                  <i class="fa-solid fa-location-dot text-white fa-2x border-bottom pb-2"></i>
-                  <div class="ps-3">
-                    <p class="mb-0">
-                      157 White Oak Drive Kansas City <br>
-                      689 Lynn Street South Boston
-                    </p>
-                  </div>
-                </div>
-                <div class="location d-flex align-items-center pe-2 py-3">
-                  <i class="fa-solid fa-mobile text-white fa-2x border-bottom pb-2"></i>
-                  <div class="ps-3">
-                    <p class="mb-0">
-                      (617)-276-8031 <br>
-                      (617)-276-8031
-                    </p>
-                  </div>
-                </div>
-                <div class="location d-flex align-items-center pe-2 py-3">
-                  <i class="fa-solid fa-envelope text-white fa-2x border-bottom pb-2"></i>
-                  <div class="ps-3">
-                    <p class="mb-0">
-                      admin@fooday.com <br>
-                      support@fooday.com
-                    </p>
-                  </div>
-                </div>
-            </div>
-            </div>
-          </div>
-          <div class="col-xl-4">
-            <div class="reservation-box" data-aos="fade-down-left">
-              <div class="reservation-wrapper">
-                <h2>Open Hour</h2>
-                <div class="reservation-date-time">
-                  <p>Tuesday: .......................... 7AM - 9PM</p>
-                  <p>Wednesday: ..................... 7AM - 9PM</p>
-                  <p>Thursday: ......................... 7AM - 9PM</p>
-                  <p>Friday: ............................... 7AM - 9PM</p>
-                  <p>Saturday: ........................... 7AM - 9PM</p>
-                  <p>Sunday: ............................. 7AM - 9PM</p>
-                  <p>Monday: ............................. Close</p>
-                </div>
-                <h2 class="pb-2">Reservation Numbers</h2>
-                <h3>(617)-276-8031</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <p class="text-center pt-4 mt-3 pt-lg-0">&copy; <span id="copyrightCurrentYear"></span> <b> Restoran.</b> All rights reserved. Design by <a href="https://www.linkedin.com/in/codewithshabbir/" class="fw-bold author-name">Muhammad Shabbir</a></p>
-        </div>
-      </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="./assets/js/script.js"></script>
-  </body>
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+          io.unobserve(entry.target);
+        }
+      });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
 </html>
