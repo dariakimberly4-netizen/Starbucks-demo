@@ -108,6 +108,27 @@
     @keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-14px) rotate(1deg)}}
     @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
     @keyframes marquee{to{transform:translateX(-50%)}}
+
+    .scene-flash{position:fixed;inset:0;z-index:140;pointer-events:none;background:radial-gradient(circle at 65% 50%,rgba(183,228,207,.22),transparent 24%),rgba(0,98,65,.07);opacity:0;mix-blend-mode:screen}
+    .scene-flash.go{animation:sceneFlash .55s ease both}
+    .hero-sweep{position:absolute;inset:-25%;pointer-events:none;background:conic-gradient(from 0deg,transparent 0 70%,rgba(183,228,207,.12) 78%,transparent 86%);animation:sweep 16s linear infinite}
+    .cup-wrap,.journey-cup{cursor:grab}
+    .cup-wrap:active,.journey-cup:active{cursor:grabbing}
+    .cup-wrap:after,.journey-cup:after{content:"TAP / DRAG";position:absolute;left:50%;bottom:-38px;transform:translateX(-50%);font-size:9px;letter-spacing:.2em;font-weight:800;white-space:nowrap;color:var(--green);opacity:.58}
+    .journey-cup:after{color:#bfe2d1}
+    .cup-wrap.pulse img,.journey-cup.pulse img{animation:cupPulse .55s cubic-bezier(.2,.8,.2,1)}
+    .ripple{position:absolute;left:50%;top:50%;width:20px;height:20px;border-radius:50%;border:1px solid currentColor;transform:translate(-50%,-50%) scale(.2);opacity:0;pointer-events:none}
+    .ripple.go{animation:rippleOut .9s ease-out}
+    .hero .ripple{color:rgba(0,98,65,.45)}
+    .journey .ripple{color:rgba(255,255,255,.3)}
+    .kinetic-word{position:fixed;z-index:145;pointer-events:none;font-family:"Playfair Display",serif;font-size:clamp(28px,5vw,70px);font-weight:600;color:#fff;mix-blend-mode:difference;opacity:0;transform:translate(-50%,-50%) scale(.5)}
+    .kinetic-word.go{animation:wordBurst .8s ease-out forwards}
+    @keyframes sceneFlash{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+    @keyframes sweep{to{transform:rotate(360deg)}}
+    @keyframes cupPulse{0%{transform:scale(1)}45%{transform:scale(1.08) rotate(1.5deg)}100%{transform:scale(1)}}
+    @keyframes rippleOut{0%{opacity:.75;transform:translate(-50%,-50%) scale(.2)}100%{opacity:0;transform:translate(-50%,-50%) scale(26)}}
+    @keyframes wordBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}25%{opacity:1}100%{opacity:0;transform:translate(-50%,-90%) scale(1.35)}}
+
     @media(max-width:900px){
       .nav-links{display:none;position:absolute;top:72px;left:0;right:0;background:var(--cream);padding:22px;flex-direction:column;border-bottom:1px solid var(--line)}
       .nav-links.open{display:flex}
@@ -159,6 +180,8 @@
 </head>
 <body>
   <div class="progress" id="progress"></div>
+  <div class="scene-flash" id="sceneFlash" aria-hidden="true"></div>
+  <div class="kinetic-word" id="kineticWord" aria-hidden="true">COFFEE</div>
 
   <nav class="nav">
     <div class="shell nav-inner">
@@ -175,6 +198,7 @@
 
   <main id="top">
     <section class="hero">
+      <div class="hero-sweep" aria-hidden="true"></div>
       <div class="shell hero-grid">
         <div class="hero-copy">
           <span class="kicker">One cup. Many chapters.</span>
@@ -189,7 +213,8 @@
         <div class="hero-visual">
           <div class="halo"></div>
           <div class="halo small"></div>
-          <div class="cup-wrap" id="heroCup">
+          <div class="cup-wrap" id="heroCup" role="button" tabindex="0" aria-label="Interactive Starbucks drink">
+            <span class="ripple" aria-hidden="true"></span>
             <img src="./assets/images/starbucks-user-exact-v18.jpg?v=22" alt="Starbucks drink">
           </div>
           <div class="orbit-word word-1">Pike Place</div>
@@ -242,7 +267,8 @@
           </div>
 
           <div class="journey-ring" id="journeyRing"></div>
-          <div class="journey-cup" id="journeyCup">
+          <div class="journey-cup" id="journeyCup" role="button" tabindex="0" aria-label="Interactive Starbucks drink">
+            <span class="ripple" aria-hidden="true"></span>
             <img src="./assets/images/starbucks-user-exact-v18.jpg?v=22" alt="Starbucks drink">
           </div>
         </div>
@@ -297,7 +323,11 @@
     const dots=[...document.querySelectorAll('.journey-dot')];
     const bgYear=document.getElementById('bgYear');
     const cup=document.getElementById('journeyCup');
+    const heroCup=document.getElementById('heroCup');
     const ring=document.getElementById('journeyRing');
+    const sceneFlash=document.getElementById('sceneFlash');
+    const kineticWord=document.getElementById('kineticWord');
+    let lastScene=0;
 
     menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
     navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
@@ -320,6 +350,13 @@
       dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
       bgYear.textContent=years[idx];
 
+      if(idx!==lastScene && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+        sceneFlash.classList.remove('go');
+        void sceneFlash.offsetWidth;
+        sceneFlash.classList.add('go');
+        lastScene=idx;
+      }
+
       const local=(p*4)-idx;
       const scale=1 + Math.sin(local*Math.PI)*0.12 + idx*0.02;
       const rotate=(p*24)-10;
@@ -329,6 +366,43 @@
       cup.style.setProperty('--cup-rotate',rotate.toFixed(2)+'deg');
       ring.style.setProperty('--ring-rotate',ringRotate.toFixed(1)+'deg');
     }
+
+    const words=['COFFEE','CRAFT','CONNECTION','COMMUNITY'];
+    let wordIndex=0;
+
+    function burstCup(el){
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      el.classList.remove('pulse');
+      void el.offsetWidth;
+      el.classList.add('pulse');
+      const ripple=el.querySelector('.ripple');
+      ripple.classList.remove('go');
+      void ripple.offsetWidth;
+      ripple.classList.add('go');
+
+      const r=el.getBoundingClientRect();
+      kineticWord.textContent=words[wordIndex++%words.length];
+      kineticWord.style.left=(r.left+r.width/2)+'px';
+      kineticWord.style.top=(r.top+r.height/2)+'px';
+      kineticWord.classList.remove('go');
+      void kineticWord.offsetWidth;
+      kineticWord.classList.add('go');
+    }
+
+    [heroCup,cup].forEach(el=>{
+      el.addEventListener('click',()=>burstCup(el));
+      el.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();burstCup(el)}
+      });
+      el.addEventListener('pointermove',e=>{
+        if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const r=el.getBoundingClientRect();
+        const x=(e.clientX-r.left)/r.width-.5;
+        const y=(e.clientY-r.top)/r.height-.5;
+        el.style.filter=`drop-shadow(${x*-28}px ${28+y*16}px 46px rgba(0,0,0,.3))`;
+      });
+      el.addEventListener('pointerleave',()=>el.style.filter='');
+    });
 
     addEventListener('scroll',()=>requestAnimationFrame(update),{passive:true});
     addEventListener('resize',update);
