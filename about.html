@@ -28,7 +28,11 @@
     a{color:inherit;text-decoration:none}
     button{font:inherit}
     .shell{width:min(1180px,calc(100% - 40px));margin:auto}
-    .progress{position:fixed;left:0;top:0;height:3px;width:0;background:var(--green);z-index:100;transform-origin:left}
+    .progress{position:fixed;left:0;top:0;height:4px;width:0;background:var(--green);z-index:100;transform-origin:left;box-shadow:0 0 18px rgba(11,93,59,.35)}
+    .motion-toggle{position:fixed;right:16px;bottom:16px;z-index:120;border:0;border-radius:999px;padding:12px 16px;background:rgba(20,63,50,.94);color:#fff;font-weight:800;font-size:12px;letter-spacing:.04em;box-shadow:0 10px 30px rgba(0,0,0,.22);backdrop-filter:blur(10px)}
+    .motion-toggle:focus-visible{outline:3px solid #fff;outline-offset:3px}
+    body.motion-paused *{animation-play-state:paused!important}
+    body.motion-paused .scroll-motion{transform:none!important;opacity:1!important}
     .nav{position:fixed;inset:0 0 auto;z-index:90;background:rgba(245,240,232,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(23,34,28,.08)}
     .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:30px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em}
@@ -43,9 +47,9 @@
     p{margin:0}
     .hero{min-height:100svh;display:grid;align-items:end;position:relative;overflow:hidden;background:#10281e;color:white}
     .hero-bg{position:absolute;inset:0}
-    .hero-bg img{height:100%;object-fit:cover;filter:brightness(.42) saturate(.72);transform:scale(1.06);animation:heroDrift 14s ease-in-out infinite alternate}
+    .hero-bg img{height:115%;object-fit:cover;filter:brightness(.42) saturate(.72);transform:translate3d(0,var(--hero-y,0px),0) scale(var(--hero-scale,1.09));animation:heroDrift 12s ease-in-out infinite alternate;will-change:transform}
     .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,18,12,.12),rgba(5,18,12,.35) 45%,rgba(5,18,12,.88))}
-    .hero-content{position:relative;z-index:2;padding:160px 0 74px}
+    .hero-content{position:relative;z-index:2;padding:160px 0 74px;transform:translate3d(0,var(--hero-content-y,0px),0);will-change:transform}
     .hero .eyebrow{color:#bfe6d4}
     .hero h1{font-size:clamp(62px,9.2vw,138px);line-height:.88;letter-spacing:-.05em;max-width:1000px;margin-top:18px}
     .hero-bottom{display:grid;grid-template-columns:1fr .75fr;gap:40px;align-items:end;margin-top:42px}
@@ -61,17 +65,17 @@
     .intro-sticky h2{font-size:clamp(46px,5vw,76px);line-height:.98;margin-top:18px}
     .intro-sticky p{color:var(--muted);line-height:1.75;margin-top:24px;max-width:430px}
     .story-stack{display:grid;gap:24px}
-    .story-card{background:white;border-radius:34px;padding:34px;box-shadow:0 12px 36px rgba(23,34,28,.07);display:grid;grid-template-columns:170px 1fr;gap:28px;align-items:center;min-height:220px}
+    .story-card{background:white;border-radius:34px;padding:34px;box-shadow:0 12px 36px rgba(23,34,28,.07);display:grid;grid-template-columns:170px 1fr;gap:28px;align-items:center;min-height:220px;will-change:transform;transform:translate3d(var(--card-x,0px),var(--card-y,0px),0) rotate(var(--card-r,0deg))}
     .story-card .year{font-family:"Playfair Display";font-size:58px;color:var(--green);line-height:1}
     .story-card h3{font-size:28px;margin-bottom:10px}
     .story-card p{line-height:1.7;color:var(--muted)}
     .chapter{background:#e3ece6}
     .chapter-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
     .chapter-media{border-radius:38px;overflow:hidden;min-height:620px;position:relative;box-shadow:var(--shadow);background:#223b30}
-    .chapter-media img{height:100%;object-fit:cover;filter:saturate(.82);transform:scale(1.03);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
-    .chapter-media.in-view img{transform:scale(1.08)}
+    .chapter-media img{height:115%;object-fit:cover;filter:saturate(.82);transform:translate3d(0,var(--chapter-y,0px),0) scale(1.08);transition:filter .4s ease;will-change:transform}
+    .chapter-media.in-view img{filter:saturate(.95)}
     .chapter-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(4,18,12,.42))}
-    .chapter-copy{background:var(--green-dark);color:white;border-radius:38px;padding:clamp(38px,5vw,72px);display:flex;flex-direction:column;justify-content:center}
+    .chapter-copy{background:var(--green-dark);color:white;border-radius:38px;padding:clamp(38px,5vw,72px);display:flex;flex-direction:column;justify-content:center;transform:translate3d(var(--chapter-copy-x,0px),0,0);will-change:transform}
     .chapter-copy .eyebrow{color:#bfe6d4}
     .chapter-copy h2{font-size:clamp(50px,6vw,84px);line-height:.96;margin:18px 0 24px}
     .chapter-copy p{font-size:17px;line-height:1.8;color:#d9e6e0}
@@ -83,6 +87,7 @@
     .timeline-head h2{font-size:clamp(48px,6vw,84px);line-height:.98}
     .timeline-head p{max-width:480px;line-height:1.7;color:var(--muted)}
     .timeline{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .timeline-progress{position:absolute;left:0;top:14px;height:3px;width:var(--timeline-fill,0%);background:var(--green);border-radius:999px;z-index:2;box-shadow:0 0 14px rgba(11,93,59,.25);transition:width .08s linear}
     .timeline:before{content:"";position:absolute;left:0;right:0;top:14px;height:1px;background:var(--line)}
     .milestone{position:relative;padding-top:48px}
     .milestone:before{content:"";position:absolute;top:8px;left:0;width:13px;height:13px;border-radius:50%;background:var(--cream);border:3px solid var(--green);transition:.3s}
@@ -95,15 +100,15 @@
     .mission-top h2{font-size:clamp(54px,7vw,100px);line-height:.93;margin:20px 0 24px}
     .mission-top p{font-size:18px;line-height:1.75;color:#d4e2dc;max-width:760px;margin:auto}
     .values{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .value{min-height:270px;border:1px solid rgba(255,255,255,.14);border-radius:28px;padding:30px;background:rgba(255,255,255,.045);transition:.28s}
-    .value:hover{transform:translateY(-5px);background:rgba(255,255,255,.075)}
+    .value{min-height:270px;border:1px solid rgba(255,255,255,.14);border-radius:28px;padding:30px;background:rgba(255,255,255,.045);transition:background .28s,border-color .28s;transform:translate3d(0,var(--value-y,0px),0) rotate(var(--value-r,0deg));will-change:transform}
+    .value:hover{background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.28)}
     .value-num{font-size:12px;letter-spacing:.14em;color:#9fc6b5}
     .value h3{font-size:29px;margin:34px 0 13px}
     .value p{font-size:14px;line-height:1.65;color:#cedbd5}
     .closing{padding:130px 0}
     .closing-card{min-height:620px;border-radius:40px;overflow:hidden;position:relative;display:flex;align-items:end;padding:54px;color:white;box-shadow:var(--shadow)}
-    .closing-card img{position:absolute;inset:0;height:100%;object-fit:cover;filter:brightness(.47) saturate(.78);transform:scale(1.02);transition:transform 1.2s}
-    .closing-card.in-view img{transform:scale(1.075)}
+    .closing-card img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;filter:brightness(.47) saturate(.78);transform:translate3d(0,var(--closing-y,0px),0) scale(1.08);will-change:transform}
+    .closing-card.in-view img{filter:brightness(.5) saturate(.9)}
     .closing-card:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,20,13,.88),rgba(4,20,13,.12))}
     .closing-copy{position:relative;z-index:2;max-width:720px}
     .closing-copy .eyebrow{color:#c6e8d9}
@@ -151,13 +156,13 @@
       .footer-inner{flex-direction:column}
     }
     @media(prefers-reduced-motion:reduce){
-      *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
-      .reveal{opacity:1;transform:none}
+      .motion-toggle{display:block}
     }
   </style>
 </head>
 <body>
   <div class="progress" id="progress"></div>
+  <button class="motion-toggle" id="motionToggle" type="button" aria-pressed="false">Pause Motion</button>
 
   <nav class="nav">
     <div class="shell nav-inner">
@@ -260,7 +265,8 @@
           </div>
           <p>Instead of a static corporate timeline, the milestones reveal themselves as you move through the page—matching the calm motion language of the redesigned homepage.</p>
         </div>
-        <div class="timeline">
+        <div class="timeline" id="timeline">
+          <div class="timeline-progress" aria-hidden="true"></div>
           <div class="milestone reveal"><b>1971</b><span>Single-store beginnings at Pike Place Market in Seattle.</span></div>
           <div class="milestone reveal"><b>1983</b><span>Italian coffee bars inspire the idea of a welcoming third place.</span></div>
           <div class="milestone reveal"><b>1987</b><span>A new chapter begins as the company grows around the coffeehouse experience.</span></div>
@@ -340,25 +346,28 @@
     navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
 
     const progress=document.getElementById('progress');
-    const setProgress=()=>{
-      const doc=document.documentElement;
-      const max=doc.scrollHeight-doc.clientHeight;
-      progress.style.width=(max ? (doc.scrollTop/max)*100 : 0)+'%';
-    };
-    addEventListener('scroll',setProgress,{passive:true});
-    setProgress();
+    const motionToggle=document.getElementById('motionToggle');
+    let motionPaused=false;
+
+    motionToggle.addEventListener('click',()=>{
+      motionPaused=!motionPaused;
+      document.body.classList.toggle('motion-paused',motionPaused);
+      motionToggle.textContent=motionPaused?'Play Motion':'Pause Motion';
+      motionToggle.setAttribute('aria-pressed',String(motionPaused));
+      if(!motionPaused) requestTick();
+    });
 
     const revealObserver=new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
           entry.target.classList.add('show');
-          if(entry.target.classList.contains('chapter-media') || entry.target.classList.contains('closing-card')){
+          if(entry.target.classList.contains('chapter-media')||entry.target.classList.contains('closing-card')){
             entry.target.classList.add('in-view');
           }
           revealObserver.unobserve(entry.target);
         }
       });
-    },{threshold:.13});
+    },{threshold:.12});
     document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
 
     const milestones=[...document.querySelectorAll('.milestone')];
@@ -371,6 +380,75 @@
       });
     },{rootMargin:'-35% 0px -45% 0px',threshold:0});
     milestones.forEach(m=>milestoneObserver.observe(m));
+
+    const hero=document.querySelector('.hero');
+    const heroImg=document.querySelector('.hero-bg img');
+    const heroContent=document.querySelector('.hero-content');
+    const storyCards=[...document.querySelectorAll('.story-card')];
+    const chapter=document.getElementById('philippines');
+    const chapterImg=document.querySelector('.chapter-media img');
+    const chapterCopy=document.querySelector('.chapter-copy');
+    const timeline=document.getElementById('timeline');
+    const valueCards=[...document.querySelectorAll('.value')];
+    const mission=document.getElementById('mission');
+    const closing=document.querySelector('.closing-card');
+    const closingImg=document.querySelector('.closing-card img');
+
+    let ticking=false;
+    const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
+    const localProgress=(el)=>{
+      const r=el.getBoundingClientRect();
+      return clamp((innerHeight-r.top)/(innerHeight+r.height),0,1);
+    };
+
+    function updateMotion(){
+      ticking=false;
+      const doc=document.documentElement;
+      const max=doc.scrollHeight-doc.clientHeight;
+      progress.style.width=(max?doc.scrollTop/max*100:0)+'%';
+      if(motionPaused) return;
+
+      const heroP=clamp(scrollY/Math.max(innerHeight,1),0,1);
+      heroImg.style.setProperty('--hero-y',(heroP*95)+'px');
+      heroImg.style.setProperty('--hero-scale',(1.09+heroP*.07).toFixed(3));
+      heroContent.style.setProperty('--hero-content-y',(heroP*-70)+'px');
+
+      storyCards.forEach((card,i)=>{
+        const p=localProgress(card)-.5;
+        const dir=i%2===0?-1:1;
+        card.style.setProperty('--card-x',(p*dir*54)+'px');
+        card.style.setProperty('--card-y',(Math.abs(p)*18)+'px');
+        card.style.setProperty('--card-r',(p*dir*1.4)+'deg');
+      });
+
+      const cp=localProgress(chapter)-.5;
+      chapterImg.style.setProperty('--chapter-y',(cp*-150)+'px');
+      chapterCopy.style.setProperty('--chapter-copy-x',(cp*70)+'px');
+
+      const tr=timeline.getBoundingClientRect();
+      const fill=clamp((innerHeight*.72-tr.top)/(tr.height+innerHeight*.25),0,1)*100;
+      timeline.style.setProperty('--timeline-fill',fill+'%');
+
+      const mp=localProgress(mission)-.5;
+      valueCards.forEach((card,i)=>{
+        const wave=Math.sin((mp*3.4)+(i*.7));
+        card.style.setProperty('--value-y',(wave*18)+'px');
+        card.style.setProperty('--value-r',(wave*.8)+'deg');
+      });
+
+      const clp=localProgress(closing)-.5;
+      closingImg.style.setProperty('--closing-y',(clp*-150)+'px');
+    }
+
+    function requestTick(){
+      if(!ticking){
+        requestAnimationFrame(updateMotion);
+        ticking=true;
+      }
+    }
+    addEventListener('scroll',requestTick,{passive:true});
+    addEventListener('resize',requestTick);
+    requestTick();
   </script>
 </body>
 </html>
